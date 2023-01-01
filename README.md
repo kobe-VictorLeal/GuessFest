@@ -1,4 +1,4 @@
-# GuessFest
+# guessfest
 
 Jogo competitivo de adivinhação de palavras
 
