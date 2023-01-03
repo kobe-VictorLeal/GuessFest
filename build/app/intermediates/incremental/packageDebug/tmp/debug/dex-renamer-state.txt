@@ -1,4 +1,4 @@
-#Sun Jan 01 11:08:30 BRT 2023
+#Mon Jan 02 16:00:32 BRT 2023
 base.0=/Users/victorleal/Desktop/GuessFest/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
