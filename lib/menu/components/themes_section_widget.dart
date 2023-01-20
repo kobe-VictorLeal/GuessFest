@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ThemesRowWidget extends StatefulWidget {
+class ThemesSectionWidget extends StatefulWidget {
+  final String title;
+  final List<String> themes;
+
+  ThemesSectionWidget({
+    required this.title,
+    required this.themes,
+  });
+
   @override
-  State<ThemesRowWidget> createState() => _ThemesRowWidgetState();
+  State<ThemesSectionWidget> createState() => _ThemesSectionWidgetState();
 }
 
-class _ThemesRowWidgetState extends State<ThemesRowWidget> with SingleTickerProviderStateMixin {
-  final List<String> themes = ["action", "beatle", "bible", "NBA", "NFL"];
-
+class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 700),
     vsync: this,
@@ -18,7 +24,6 @@ class _ThemesRowWidgetState extends State<ThemesRowWidget> with SingleTickerProv
   );
 
   _runExpandSection() {
-    print("aaaaaaaaaa");
     if (_animation.status != AnimationStatus.completed) {
       _controller.forward();
     } else {
@@ -33,16 +38,6 @@ class _ThemesRowWidgetState extends State<ThemesRowWidget> with SingleTickerProv
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          "GERALGERALGERAL",
-          style: TextStyle(
-            fontFamily: "Bebas",
-            fontSize: 30,
-            color: Colors.white,
-            fontWeight: FontWeight.normal,
-          ),
-          textAlign: TextAlign.center,
-        ),
         GestureDetector(
           onTap: () {
             _runExpandSection();
@@ -54,7 +49,7 @@ class _ThemesRowWidgetState extends State<ThemesRowWidget> with SingleTickerProv
           axis: Axis.vertical,
           axisAlignment: -1,
           child: Center(
-            child: _themesWidget(context, themes),
+            child: _themesWidget(context, widget.themes),
           ),
         ),
       ],
@@ -73,10 +68,10 @@ class _ThemesRowWidgetState extends State<ThemesRowWidget> with SingleTickerProv
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.fill,
             ),
-            const Center(
+            Center(
               child: Text(
-                "GERAL",
-                style: TextStyle(
+                widget.title,
+                style: const TextStyle(
                   fontFamily: "Bebas",
                   fontSize: 30,
                   color: Colors.white,

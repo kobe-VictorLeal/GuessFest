@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guessfest/menu/components/themes_row_widget.dart';
+import 'package:guessfest/menu/components/menu_widget.dart';
+import 'package:guessfest/menu/components/themes_section_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +13,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: "Bebas",
-      ),
-      home: ThemesRowWidget(),
-    );
+        theme: ThemeData(
+          fontFamily: "Bebas",
+        ),
+        home: Column(
+          children: [
+            const Text(
+              "GERALGERALGERAL",
+              style: TextStyle(
+                fontFamily: "Bebas",
+                fontSize: 30,
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            MenuWidget(),
+          ],
+        ));
   }
 }
