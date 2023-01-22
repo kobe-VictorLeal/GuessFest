@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:guessfest/menu/components/menu_widget.dart';
-import 'package:guessfest/menu/components/themes_section_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,20 +15,23 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "Bebas",
         ),
-        home: Column(
-          children: [
-            const Text(
-              "GERALGERALGERAL",
-              style: TextStyle(
-                fontFamily: "Bebas",
-                fontSize: 30,
-                color: Colors.white,
-                fontWeight: FontWeight.normal,
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Column(
+            children: [
+              const Text(
+                "GERALGERALGERAL",
+                style: TextStyle(
+                  fontFamily: "Bebas",
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.normal,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            MenuWidget(),
-          ],
+              MenuWidget(),
+            ],
+          ),
         ));
   }
 }

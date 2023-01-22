@@ -62,9 +62,9 @@ flutter:
     - assets/images/menu/bars/greenBar.png
     - assets/images/menu/bars/pinkBar.png
 
-    - assets/images/menu/themes/action.png
+    - assets/images/menu/themes/actions.png
     - assets/images/menu/themes/animals.png
-    - assets/images/menu/themes/beatle.png
+    - assets/images/menu/themes/beatles.png
     - assets/images/menu/themes/bible.png
     - assets/images/menu/themes/brand.png
     - assets/images/menu/themes/celebrities.png
@@ -77,7 +77,8 @@ flutter:
     - assets/images/menu/themes/history.png
     - assets/images/menu/themes/jobs.png
     - assets/images/menu/themes/marvel.png
-    - assets/images/menu/themes/movies.png
+    - assets/images/menu/themes/films.png
+    - assets/images/menu/themes/series.png
     - assets/images/menu/themes/music.png
     - assets/images/menu/themes/NBA.png
     - assets/images/menu/themes/NFL.png
@@ -87,12 +88,14 @@ flutter:
     - assets/images/menu/themes/rock.png
     - assets/images/menu/themes/soccer.png
     - assets/images/menu/themes/sports.png
+    - assets/images/menu/themes/kids.png
     - assets/images/menu/themes/starwars.png
     - assets/images/menu/themes/the80.png
     - assets/images/menu/themes/the90.png
     - assets/images/menu/themes/the2000.png
     - assets/images/menu/themes/tv.png
     - assets/images/menu/themes/videogames.png
+    - assets/images/menu/themes/vikings.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
