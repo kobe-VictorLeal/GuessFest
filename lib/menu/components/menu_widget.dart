@@ -82,7 +82,7 @@ class MenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height - 30,
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: themes.length,

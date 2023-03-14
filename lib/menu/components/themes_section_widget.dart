@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/menu/components/menu_popup_widget.dart';
 
 class ThemesSectionWidget extends StatefulWidget {
   final String title;
@@ -32,6 +33,14 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
         duration: const Duration(milliseconds: 500),
       );
     }
+  }
+
+  _openPopup(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MenuPopupWidget();
+        });
   }
 
   @override
@@ -97,7 +106,12 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
               width: 150,
               child: Column(
                 children: [
-                  Image.asset('assets/images/menu/themes/${themes[index]}.png'),
+                  GestureDetector(
+                    onTap: () {
+                      _openPopup(context);
+                    },
+                    child: Image.asset('assets/images/menu/themes/${themes[index]}.png'),
+                  ),
                   const SizedBox(height: 5),
                   Text(
                     themes[index],
