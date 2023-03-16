@@ -59,11 +59,26 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    # General
+    - assets/images/general/guessFestLogo.png
+
+    # Buttons
+    - assets/images/menu/buttons/play.png
+    - assets/images/menu/buttons/exit.png
+    - assets/images/menu/buttons/price.png
+    - assets/images/menu/buttons/settings.png
+    - assets/images/menu/buttons/tutorial.png
+
     # Menu
     - assets/images/menu/bars/greenBar.png
     - assets/images/menu/bars/pinkBar.png
 
+    # Popup
     - assets/images/menu/popup/popupTheme.png
+    - assets/images/menu/popup/lineTitle.png
+
+    # Settings
+    - assets/images/menu/settings/background.png
 
     # Themes
     - assets/images/menu/themes/actions.png
