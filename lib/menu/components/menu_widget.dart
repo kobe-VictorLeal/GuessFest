@@ -81,16 +81,17 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height - 30,
-      child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          itemCount: themes.length,
-          itemBuilder: (ctx, index) {
-            return Container(
-              child: ThemesSectionWidget(title: themes[index].title, themes: themes[index].themes),
-            );
-          }),
+    return Container(
+      color: const Color.fromRGBO(82, 58, 113, 1),
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height - 30,
+        child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: themes.length,
+            itemBuilder: (ctx, index) {
+              return ThemesSectionWidget(title: themes[index].title, themes: themes[index].themes);
+            }),
+      ),
     );
   }
 }

@@ -35,11 +35,11 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
     }
   }
 
-  _openPopup(BuildContext context) {
+  _openPopup(BuildContext context, String theme) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return MenuPopupWidget();
+          return MenuPopupWidget(theme: theme);
         });
   }
 
@@ -108,7 +108,7 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
                 children: [
                   GestureDetector(
                     onTap: () {
-                      _openPopup(context);
+                      _openPopup(context, themes[index]);
                     },
                     child: Image.asset('assets/images/menu/themes/${themes[index]}.png'),
                   ),

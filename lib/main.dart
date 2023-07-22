@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           resizeToAvoidBottomInset: false,
+          backgroundColor: const Color.fromRGBO(82, 58, 113, 1),
           body: Column(
             children: [
               const Text(
