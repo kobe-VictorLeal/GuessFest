@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:guessfest/menu/components/menu_popup_widget.dart';
+import 'package:guessfest/menu/models/theme_enum.dart';
 
 class ThemesSectionWidget extends StatefulWidget {
   final String title;
-  final List<String> themes;
+  final List<ThemeEnum> themes;
 
   ThemesSectionWidget({
     required this.title,
@@ -35,7 +36,7 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
     }
   }
 
-  _openPopup(BuildContext context, String theme) {
+  _openPopup(BuildContext context, ThemeEnum theme) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -94,7 +95,7 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
         ));
   }
 
-  Widget _themesWidget(BuildContext context, List<String> themes) {
+  Widget _themesWidget(BuildContext context, List<ThemeEnum> themes) {
     return SizedBox(
       height: 150,
       child: ListView.builder(
@@ -110,11 +111,11 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
                     onTap: () {
                       _openPopup(context, themes[index]);
                     },
-                    child: Image.asset('assets/images/menu/themes/${themes[index]}.png'),
+                    child: Image.asset('assets/images/menu/themes/${themes[index].name}.png'),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    themes[index],
+                    themes[index].title,
                     style: const TextStyle(
                       fontFamily: "Bebas",
                       fontSize: 20,

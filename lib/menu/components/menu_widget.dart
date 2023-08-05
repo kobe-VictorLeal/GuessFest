@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guessfest/menu/Models/themes.dart';
+import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/models/themes_section.dart';
 import 'package:guessfest/menu/components/themes_section_widget.dart';
 
@@ -8,73 +8,73 @@ class MenuWidget extends StatelessWidget {
     ThemeSection(
       title: "General",
       themes: [
-        Themes.jobs.name,
-        Themes.brand.name,
-        Themes.food.name,
-        Themes.objects.name,
-        Themes.celebrities.name,
-        Themes.places.name,
-        Themes.animals.name,
-        Themes.actions.name,
+        ThemeEnum.jobs,
+        ThemeEnum.brand,
+        ThemeEnum.food,
+        ThemeEnum.objects,
+        ThemeEnum.celebrities,
+        ThemeEnum.places,
+        ThemeEnum.animals,
+        ThemeEnum.actions,
       ],
     ),
     ThemeSection(
       title: "Sports",
       themes: [
-        Themes.sports.name,
-        Themes.soccer.name,
-        Themes.NBA.name,
-        Themes.NFL.name,
+        ThemeEnum.sports,
+        ThemeEnum.soccer,
+        ThemeEnum.NBA,
+        ThemeEnum.NFL,
       ],
     ),
     ThemeSection(
       title: "Music",
       themes: [
-        Themes.music.name,
-        Themes.rock.name,
-        Themes.beatles.name,
+        ThemeEnum.music,
+        ThemeEnum.rock,
+        ThemeEnum.beatles,
       ],
     ),
     ThemeSection(
       title: "TV",
       themes: [
-        Themes.series.name,
-        Themes.films.name,
-        Themes.got.name,
-        Themes.harry.name,
-        Themes.starwars.name,
-        Themes.friends.name,
-        Themes.vikings.name,
+        ThemeEnum.series,
+        ThemeEnum.films,
+        ThemeEnum.got,
+        ThemeEnum.harry,
+        ThemeEnum.starwars,
+        ThemeEnum.friends,
+        ThemeEnum.vikings,
       ],
     ),
     ThemeSection(
       title: "Kids",
       themes: [
-        Themes.kids.name,
-        Themes.objects.name,
-        Themes.videogames.name,
+        ThemeEnum.kids,
+        ThemeEnum.objects,
+        ThemeEnum.videogames,
       ],
     ),
     ThemeSection(
       title: "History",
       themes: [
-        Themes.history.name,
-        Themes.the80.name,
-        Themes.the90.name,
-        Themes.the2000.name,
-        Themes.bible.name,
-        Themes.politics.name,
+        ThemeEnum.history,
+        ThemeEnum.the80,
+        ThemeEnum.the90,
+        ThemeEnum.the2000,
+        ThemeEnum.bible,
+        ThemeEnum.politics,
       ],
     ),
     ThemeSection(
       title: "Geek",
       themes: [
-        Themes.videogames.name,
-        Themes.DC.name,
-        Themes.marvel.name,
-        Themes.got.name,
-        Themes.harry.name,
-        Themes.starwars.name,
+        ThemeEnum.videogames,
+        ThemeEnum.DC,
+        ThemeEnum.marvel,
+        ThemeEnum.got,
+        ThemeEnum.harry,
+        ThemeEnum.starwars,
       ],
     ),
   ];
@@ -84,7 +84,7 @@ class MenuWidget extends StatelessWidget {
     return Container(
       color: const Color.fromRGBO(82, 58, 113, 1),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height - 30,
+        height: MediaQuery.of(context).size.height - 90,
         child: ListView.builder(
             scrollDirection: Axis.vertical,
             itemCount: themes.length,

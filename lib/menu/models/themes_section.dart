@@ -1,6 +1,8 @@
+import 'package:guessfest/menu/models/theme_enum.dart';
+
 class ThemeSection {
   String title;
-  List<String> themes;
+  List<ThemeEnum> themes;
 
   ThemeSection({
     required this.title,

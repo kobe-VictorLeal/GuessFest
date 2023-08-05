@@ -18,20 +18,24 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: const Color.fromRGBO(82, 58, 113, 1),
-          body: Column(
-            children: [
-              const Text(
-                "GERALGERALGERAL",
-                style: TextStyle(
-                  fontFamily: "Bebas",
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.normal,
+          body: SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                const Text(
+                  "Categorias",
+                  style: TextStyle(
+                    fontFamily: "Bebas",
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              MenuWidget(),
-            ],
+                const SizedBox(height: 20),
+                MenuWidget(),
+              ],
+            ),
           ),
         ));
   }
