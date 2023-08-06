@@ -6,10 +6,11 @@ class ThemesSectionWidget extends StatefulWidget {
   final String title;
   final List<ThemeEnum> themes;
 
-  ThemesSectionWidget({
+  const ThemesSectionWidget({
+    Key? key,
     required this.title,
     required this.themes,
-  });
+  }) : super(key: key);
 
   @override
   State<ThemesSectionWidget> createState() => _ThemesSectionWidgetState();

@@ -4,7 +4,10 @@ import 'package:guessfest/menu/models/theme_enum.dart';
 class MenuPopupWidget extends StatelessWidget {
   final ThemeEnum theme;
 
-  MenuPopupWidget({required this.theme});
+  const MenuPopupWidget({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,52 +32,17 @@ class MenuPopupWidget extends StatelessWidget {
                   Row(
                     children: [
                       const Spacer(),
-                      IconButton(
-                        icon: Image.asset('assets/images/menu/buttons/exit.png'),
-                        iconSize: 40,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
+                      _exitButton(context),
                     ],
                   ),
-                  Text(
-                    theme.title,
-                    style: const TextStyle(
-                      fontFamily: "Bebas",
-                      fontSize: 40,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      decoration: TextDecoration.none,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  _titleText(),
                   const SizedBox(height: 10),
-                  Image.asset(
-                    'assets/images/menu/themes/${theme.name}.png',
-                    width: 180,
-                  ),
+                  _themeImage(),
                   const SizedBox(height: 15),
-                  Text(
-                    theme.description,
-                    style: const TextStyle(
-                      fontFamily: "Avenir",
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      decoration: TextDecoration.none,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  _descriptionText(),
                   const SizedBox(height: 10),
                   const Spacer(),
-                  IconButton(
-                    icon: Image.asset('assets/images/menu/buttons/play.png'),
-                    iconSize: 60,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                  _playButton(context),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -82,6 +50,61 @@ class MenuPopupWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Text _titleText() {
+    return Text(
+      theme.title,
+      style: const TextStyle(
+        fontFamily: "Bebas",
+        fontSize: 40,
+        color: Colors.white,
+        fontWeight: FontWeight.normal,
+        decoration: TextDecoration.none,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Image _themeImage() {
+    return Image.asset(
+      'assets/images/menu/themes/${theme.name}.png',
+      width: 180,
+    );
+  }
+
+  Text _descriptionText() {
+    return Text(
+      theme.description,
+      style: const TextStyle(
+        fontFamily: "Avenir",
+        fontSize: 25,
+        color: Colors.white,
+        fontWeight: FontWeight.normal,
+        decoration: TextDecoration.none,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  IconButton _exitButton(BuildContext context) {
+    return IconButton(
+      icon: Image.asset('assets/images/menu/buttons/exit.png'),
+      iconSize: 40,
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  IconButton _playButton(BuildContext context) {
+    return IconButton(
+      icon: Image.asset('assets/images/menu/buttons/play.png'),
+      iconSize: 60,
+      onPressed: () {
+        Navigator.pop(context);
+      },
     );
   }
 }
