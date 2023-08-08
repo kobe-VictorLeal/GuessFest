@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/game/components/game_word_widget.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
 
 class MenuPopupWidget extends StatelessWidget {
@@ -103,7 +104,10 @@ class MenuPopupWidget extends StatelessWidget {
       icon: Image.asset('assets/images/menu/buttons/play.png'),
       iconSize: 60,
       onPressed: () {
-        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const GameWordWidget()),
+        );
       },
     );
   }

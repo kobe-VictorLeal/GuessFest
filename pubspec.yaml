@@ -62,18 +62,35 @@ flutter:
     # General
     - assets/images/general/guessFestLogo.png
 
-    # Buttons
+    # Buttons Menu
     - assets/images/menu/buttons/play.png
     - assets/images/menu/buttons/exit.png
     - assets/images/menu/buttons/price.png
     - assets/images/menu/buttons/settings.png
     - assets/images/menu/buttons/tutorial.png
 
-    # Menu
+    # Buttons Game
+    - assets/images/game/buttons/hit.png
+    - assets/images/game/buttons/jump.png
+
+    # Bar Menu
     - assets/images/menu/bars/greenBar.png
     - assets/images/menu/bars/pinkBar.png
 
-    # Popup
+    # Bar Game
+    - assets/images/game/bars/blueTeam.png
+    - assets/images/game/bars/pinkTeam.png
+
+    # Elements Game
+    - assets/images/game/elements/01.png
+    - assets/images/game/elements/02.png
+    - assets/images/game/elements/03.png
+    - assets/images/game/elements/arcade.png
+    - assets/images/game/elements/blueCrown.png
+    - assets/images/game/elements/pinkCrown.png
+    - assets/images/game/elements/yellowCrown.png
+
+    # Popup Menu
     - assets/images/menu/popup/popupTheme.png
     - assets/images/menu/popup/lineTitle.png
 
