@@ -9,7 +9,28 @@ class GameWordWidget extends StatefulWidget {
   State<GameWordWidget> createState() => _GameWordWidgetState();
 }
 
-class _GameWordWidgetState extends State<GameWordWidget> {
+class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProviderStateMixin {
+  double _wordSize = 42;
+  Color _wordColor = Colors.white.withOpacity(1);
+
+  void _setUserResponse({required bool isHit}) {
+    _setWordAnimation(isHit: isHit);
+  }
+
+  void _setWordAnimation({required bool isHit}) {
+    setState(() {
+      _wordSize = isHit ? 50 : 34;
+      _wordColor = isHit ? Colors.green.withOpacity(0) : Colors.red.withOpacity(0);
+    });
+
+    Future.delayed(const Duration(milliseconds: 500)).then((val) {
+      setState(() {
+        _wordSize = 42;
+        _wordColor = Colors.white.withOpacity(1);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,11 +112,16 @@ class _GameWordWidgetState extends State<GameWordWidget> {
         ));
   }
 
-  Text _wordText(String word) {
-    return Text(
-      word,
-      style: _setTextStyle(fontSize: 42),
-      textAlign: TextAlign.center,
+  AnimatedDefaultTextStyle _wordText(String word) {
+    int _duration = 500;
+    return AnimatedDefaultTextStyle(
+      duration: Duration(milliseconds: _duration),
+      curve: Curves.easeInOut,
+      style: _setTextStyle(fontSize: _wordSize, color: _wordColor),
+      child: Text(
+        word,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
@@ -116,7 +142,7 @@ class _GameWordWidgetState extends State<GameWordWidget> {
       icon: Image.asset('assets/images/game/buttons/hit.png'),
       iconSize: 75,
       onPressed: () {
-        Navigator.pop(context);
+        _setWordAnimation(isHit: true);
       },
     );
   }
@@ -126,19 +152,16 @@ class _GameWordWidgetState extends State<GameWordWidget> {
       icon: Image.asset('assets/images/game/buttons/jump.png'),
       iconSize: 75,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const GameWordWidget()),
-        );
+        _setUserResponse(isHit: false);
       },
     );
   }
 
-  TextStyle _setTextStyle({double fontSize = 12}) {
+  TextStyle _setTextStyle({double fontSize = 12, Color color = Colors.white}) {
     return TextStyle(
       fontFamily: "Bebas",
       fontSize: fontSize,
-      color: Colors.white,
+      color: color,
       fontWeight: FontWeight.normal,
       decoration: TextDecoration.none,
     );
