@@ -10,8 +10,27 @@ class GameWordWidget extends StatefulWidget {
 }
 
 class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProviderStateMixin {
+  GameStatusEnum _gameStatus = GameStatusEnum.preGame;
+  final Duration _defautDuration = const Duration(seconds: 1);
+
   double _wordSize = 42;
   Color _wordColor = Colors.white.withOpacity(1);
+
+  void initState() {
+    //_startInitalCountdown();
+  }
+
+  void _startInitalCountdown() {
+    Future.delayed(const Duration(seconds: 0)).then((val) {
+      _startGame();
+    });
+  }
+
+  void _startGame() {
+    setState(() {
+      _gameStatus = GameStatusEnum.activeGame;
+    });
+  }
 
   void _setUserResponse({required bool isHit}) {
     _setWordAnimation(isHit: isHit);
@@ -49,24 +68,38 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
               child: Center(
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        _timeText(),
-                        const Spacer(),
-                        _crownImage(),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    _teamNameWidget(context),
-                    const SizedBox(height: 80),
+                    Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _backButton()),
+                    _gameHeaderWidget(),
+                    const SizedBox(height: 10),
+                    _infoText("Escolham entre si os seus times"),
+                    const SizedBox(height: 5),
+                    _teamNameWidget(context, TeamEnum.blue),
+                    const SizedBox(height: 15),
+                    Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _teamNameWidget(context, TeamEnum.pink)),
+                    const SizedBox(height: 50),
+                    Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _playButton()),
                     _wordText("aeroporto"),
-                    const SizedBox(height: 70),
-                    _actionPanelWidget(context),
+                    Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 70)),
+                    Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _actionPanelWidget(context)),
                   ],
                 ),
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _gameHeaderWidget() {
+    return AnimatedOpacity(
+      opacity: _gameStatus == GameStatusEnum.activeGame ? 1 : 0,
+      duration: _defautDuration,
+      child: Row(
+        children: [
+          _timeText(),
+          const Spacer(),
+          _crownImage(),
         ],
       ),
     );
@@ -88,52 +121,121 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     );
   }
 
-  Widget _teamNameWidget(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
-        width: MediaQuery.of(context).size.width * 0.75,
-        height: 56,
-        child: Stack(
-          children: [
-            Image.asset(
-              'assets/images/game/bars/blueTeam.png',
-              width: MediaQuery.of(context).size.width * 0.75,
-              height: 52,
-              fit: BoxFit.fill,
-            ),
-            Center(
-              child: Text(
-                "Time Azul",
-                style: _setTextStyle(fontSize: 30),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ));
-  }
+  Widget _teamNameWidget(BuildContext context, TeamEnum team) {
+    String imageName = "";
+    String title = "";
 
-  AnimatedDefaultTextStyle _wordText(String word) {
-    int _duration = 500;
-    return AnimatedDefaultTextStyle(
-      duration: Duration(milliseconds: _duration),
-      curve: Curves.easeInOut,
-      style: _setTextStyle(fontSize: _wordSize, color: _wordColor),
-      child: Text(
-        word,
-        textAlign: TextAlign.center,
+    switch (team) {
+      case TeamEnum.pink:
+        imageName = "pinkTeam.png";
+        title = "Time Rosa";
+        break;
+
+      case TeamEnum.blue:
+        imageName = "blueTeam.png";
+        title = "Time Azul";
+        break;
+
+      case TeamEnum.neutral:
+        break;
+    }
+
+    return Container(
+      padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
+      width: MediaQuery.of(context).size.width * 0.75,
+      height: 56,
+      child: Stack(
+        children: [
+          Image.asset(
+            'assets/images/game/bars/$imageName',
+            width: MediaQuery.of(context).size.width * 0.75,
+            height: 52,
+            fit: BoxFit.fill,
+          ),
+          Center(
+            child: Text(
+              title,
+              style: _setTextStyle(fontSize: 30),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Row _actionPanelWidget(BuildContext context) {
-    return Row(
-      children: [
-        const Spacer(),
-        _jumpButton(context),
-        const Spacer(),
-        _hitButton(context),
-        const Spacer(),
-      ],
+  Widget _infoText(String info) {
+    return AnimatedContainer(
+      duration: _defautDuration,
+      height: _gameStatus == GameStatusEnum.activeGame ? 0 : 80,
+      child: Opacity(
+        opacity: _gameStatus == GameStatusEnum.preGame ? 1 : 0,
+        child: Text(
+          info,
+          style: _setTextStyle(fontSize: 35),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  Widget _wordText(String word) {
+    return AnimatedOpacity(
+        opacity: _gameStatus == GameStatusEnum.activeGame ? 1 : 0,
+        duration: _defautDuration,
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+          style: _setTextStyle(fontSize: _wordSize, color: _wordColor),
+          child: Text(
+            word,
+            textAlign: TextAlign.center,
+          ),
+        ));
+  }
+
+  Widget _actionPanelWidget(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: _gameStatus == GameStatusEnum.activeGame ? 1 : 0,
+      duration: _defautDuration,
+      child: Row(
+        children: [
+          const Spacer(),
+          _jumpButton(context),
+          const Spacer(),
+          _hitButton(context),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+
+  Widget _backButton() {
+    return AnimatedContainer(
+      height: _gameStatus == GameStatusEnum.preGame ? 60 : 0,
+      duration: _defautDuration,
+      child: Row(
+        children: [
+          IconButton(
+            icon: Image.asset('assets/images/game/buttons/back.png'),
+            iconSize: 45,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+
+  IconButton _playButton() {
+    return IconButton(
+      icon: Image.asset('assets/images/menu/buttons/play.png'),
+      iconSize: 75,
+      onPressed: () {
+        _startInitalCountdown();
+      },
     );
   }
 
@@ -167,3 +269,6 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     );
   }
 }
+
+enum GameStatusEnum { preGame, activeGame, endGame }
+enum TeamEnum { pink, blue, neutral }
