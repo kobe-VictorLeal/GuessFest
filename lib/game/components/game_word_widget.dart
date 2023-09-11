@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/game/components/game_pause_widget.dart';
 
 class GameWordWidget extends StatefulWidget {
   const GameWordWidget({
@@ -50,6 +51,15 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     });
   }
 
+  _openPause(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierColor: Colors.black87,
+        builder: (BuildContext context) {
+          return const GamePauseWidget();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +91,8 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     _wordText("aeroporto"),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 70)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _actionPanelWidget(context)),
+                    Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 20)),
+                    Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _pauseButton(context)),
                   ],
                 ),
               ),
@@ -226,6 +238,21 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
           const Spacer(),
         ],
       ),
+    );
+  }
+
+  Widget _pauseButton(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          icon: Image.asset('assets/images/game/buttons/pause.png'),
+          iconSize: 45,
+          onPressed: () {
+            _openPause(context);
+          },
+        ),
+        const Spacer(),
+      ],
     );
   }
 

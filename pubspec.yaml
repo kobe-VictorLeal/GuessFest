@@ -92,6 +92,8 @@ flutter:
     - assets/images/game/elements/blueCrown.png
     - assets/images/game/elements/pinkCrown.png
     - assets/images/game/elements/yellowCrown.png
+    - assets/images/game/elements/balloonTop.png
+    - assets/images/game/elements/balloonBottom.png
 
     # Popup Menu
     - assets/images/menu/popup/popupTheme.png
