@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guessfest/menu/components/menu_widget.dart';
+import 'package:guessfest/menu/menu_widget.dart';
 
 void main() {
   runApp(const MyApp());

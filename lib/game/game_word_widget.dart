@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guessfest/game/components/game_pause_widget.dart';
+import 'package:guessfest/game/components/crown_widget.dart';
+import 'dart:async';
 
 class GameWordWidget extends StatefulWidget {
   const GameWordWidget({
@@ -16,6 +18,10 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   double _wordSize = 42;
   Color _wordColor = Colors.white.withOpacity(1);
+
+  StreamController<TeamEnum> _teamController = StreamController<TeamEnum>();
+  TeamEnum _winningTeam = TeamEnum.neutral;
+  TeamEnum _playingTeam = TeamEnum.blue;
 
   void initState() {
     //_startInitalCountdown();
@@ -58,6 +64,18 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         builder: (BuildContext context) {
           return const GamePauseWidget();
         });
+  }
+
+  _changeTeam() {
+    setState(() {
+      if (_playingTeam == TeamEnum.pink) {
+        _playingTeam = TeamEnum.blue;
+      } else {
+        _playingTeam = TeamEnum.pink;
+      }
+    });
+    _teamController.add(_playingTeam);
+    print(_teamController.stream);
   }
 
   @override
@@ -111,17 +129,9 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         children: [
           _timeText(),
           const Spacer(),
-          _crownImage(),
+          CrownWidget(streamTeam: _teamController.stream),
         ],
       ),
-    );
-  }
-
-  Image _crownImage() {
-    return Image.asset(
-      'assets/images/game/elements/pinkCrown.png',
-      width: 85,
-      fit: BoxFit.fill,
     );
   }
 
@@ -272,6 +282,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
       iconSize: 75,
       onPressed: () {
         _setWordAnimation(isHit: true);
+        _changeTeam();
       },
     );
   }

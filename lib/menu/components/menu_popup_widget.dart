@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guessfest/game/components/game_word_widget.dart';
+import 'package:guessfest/game/game_word_widget.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
 
 class MenuPopupWidget extends StatelessWidget {
