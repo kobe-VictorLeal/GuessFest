@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/models/themes_section.dart';
-import 'package:guessfest/menu/components/themes_section_widget.dart';
+import 'package:guessfest/menu/components/menu_themes_section_widget.dart';
 
 class MenuWidget extends StatelessWidget {
   final List<ThemeSection> themes = [

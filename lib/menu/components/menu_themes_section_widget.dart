@@ -82,13 +82,7 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
             Center(
               child: Text(
                 widget.title,
-                style: const TextStyle(
-                  fontFamily: "Bebas",
-                  fontSize: 30,
-                  color: Colors.white,
-                  fontWeight: FontWeight.normal,
-                  decoration: TextDecoration.none,
-                ),
+                style: _setTextStyle(fontSize: 30),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -117,19 +111,23 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
                   const SizedBox(height: 5),
                   Text(
                     themes[index].title,
-                    style: const TextStyle(
-                      fontFamily: "Bebas",
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      decoration: TextDecoration.none,
-                    ),
+                    style: _setTextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
                 ],
               ),
             );
           }),
+    );
+  }
+
+  TextStyle _setTextStyle({double fontSize = 12}) {
+    return TextStyle(
+      fontFamily: "Bebas",
+      fontSize: fontSize,
+      color: Colors.white,
+      fontWeight: FontWeight.normal,
+      decoration: TextDecoration.none,
     );
   }
 }
