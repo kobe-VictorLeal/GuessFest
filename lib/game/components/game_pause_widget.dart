@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class GamePauseWidget extends StatelessWidget {
+  final void Function(BuildContext) returnAction;
+
   const GamePauseWidget({
     Key? key,
+    required this.returnAction,
   }) : super(key: key);
 
   @override
@@ -94,14 +97,14 @@ class GamePauseWidget extends StatelessWidget {
       icon: Image.asset('assets/images/menu/buttons/play.png'),
       iconSize: 75,
       onPressed: () {
-        Navigator.pop(context);
+        returnAction(context);
       },
     );
   }
 
   IconButton _backButton(BuildContext context) {
     return IconButton(
-      icon: Image.asset('assets/images/game/buttons/back.png'),
+      icon: Image.asset('assets/images/game/buttons/menu.png'),
       iconSize: 75,
       onPressed: () {
         Navigator.of(context).popUntil((route) => route.isFirst);

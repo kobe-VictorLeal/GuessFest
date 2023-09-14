@@ -75,6 +75,7 @@ flutter:
     - assets/images/game/buttons/back.png
     - assets/images/game/buttons/pause.png
     - assets/images/game/buttons/playAgain.png
+    - assets/images/game/buttons/menu.png
 
     # Bar Menu
     - assets/images/menu/bars/greenBar.png

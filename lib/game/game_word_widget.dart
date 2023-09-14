@@ -19,9 +19,14 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   double _wordSize = 42;
   Color _wordColor = Colors.white.withOpacity(1);
 
-  final StreamController<TeamEnum> _teamController = StreamController<TeamEnum>();
+  final StreamController<TeamEnum> _winTeamController = StreamController<TeamEnum>();
   TeamEnum _winningTeam = TeamEnum.neutral;
   TeamEnum _playingTeam = TeamEnum.blue;
+  int _blueTeamPoints = 0;
+  int _pinkTeamPoints = 0;
+
+  late Timer _timer;
+  int _timeLeft = 120;
 
   void initState() {
     //_startInitalCountdown();
@@ -59,12 +64,18 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   _openPause(BuildContext context) {
+    _timer.cancel();
     showDialog(
         context: context,
         barrierColor: Colors.black87,
         builder: (BuildContext context) {
-          return const GamePauseWidget();
+          return GamePauseWidget(returnAction: _returnGame);
         });
+  }
+
+  _returnGame(BuildContext context) {
+    Navigator.pop(context);
+    startTimer();
   }
 
   _changeTeam() {
@@ -75,12 +86,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         _playingTeam = TeamEnum.pink;
       }
     });
-    _teamController.add(_playingTeam);
-    print(_teamController.stream);
   }
-
-  late Timer _timer;
-  int _timeLeft = 120;
 
   void startTimer() {
     const oneSec = Duration(seconds: 1);
@@ -92,12 +98,24 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
             timer.cancel();
           });
         } else {
+          _setTeamPoints();
           setState(() {
             _timeLeft--;
+            _winTeamController.add(_winningTeam);
           });
         }
       },
     );
+  }
+
+  _setTeamPoints() {
+    _blueTeamPoints = _blueTeamPoints + (_playingTeam == TeamEnum.pink ? 1 : 0);
+    _pinkTeamPoints = _pinkTeamPoints + (_playingTeam == TeamEnum.blue ? 1 : 0);
+    if (_blueTeamPoints == _pinkTeamPoints) {
+      _winningTeam = TeamEnum.neutral;
+    } else {
+      _winningTeam = _pinkTeamPoints > _blueTeamPoints ? TeamEnum.pink : TeamEnum.blue;
+    }
   }
 
   String _intToTimeLeft(int value) {
@@ -169,7 +187,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         children: [
           _timeText(),
           const Spacer(),
-          CrownWidget(streamTeam: _teamController.stream),
+          CrownWidget(streamTeam: _winTeamController.stream),
         ],
       ),
     );
