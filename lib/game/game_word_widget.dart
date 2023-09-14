@@ -19,7 +19,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   double _wordSize = 42;
   Color _wordColor = Colors.white.withOpacity(1);
 
-  StreamController<TeamEnum> _teamController = StreamController<TeamEnum>();
+  final StreamController<TeamEnum> _teamController = StreamController<TeamEnum>();
   TeamEnum _winningTeam = TeamEnum.neutral;
   TeamEnum _playingTeam = TeamEnum.blue;
 
@@ -34,6 +34,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   void _startGame() {
+    startTimer();
     setState(() {
       _gameStatus = GameStatusEnum.activeGame;
     });
@@ -78,6 +79,45 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     print(_teamController.stream);
   }
 
+  late Timer _timer;
+  int _timeLeft = 120;
+
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_timeLeft == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _timeLeft--;
+          });
+        }
+      },
+    );
+  }
+
+  String _intToTimeLeft(int value) {
+    int minutes, seconds;
+
+    minutes = (value) ~/ 60;
+    seconds = value - (minutes * 60);
+    final secondLeft = seconds.toString().padLeft(2, '0');
+
+    String result = "$minutes:$secondLeft";
+
+    return result;
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +141,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     const SizedBox(height: 10),
                     _infoText("Escolham entre si os seus times"),
                     const SizedBox(height: 5),
-                    _teamNameWidget(context, TeamEnum.blue),
+                    _teamNameWidget(context, _playingTeam),
                     const SizedBox(height: 15),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _teamNameWidget(context, TeamEnum.pink)),
                     const SizedBox(height: 50),
@@ -137,7 +177,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   Text _timeText() {
     return Text(
-      "1:12",
+      _intToTimeLeft(_timeLeft),
       style: _setTextStyle(fontSize: 38),
       textAlign: TextAlign.center,
     );

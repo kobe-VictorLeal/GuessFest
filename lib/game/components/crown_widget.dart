@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guessfest/game/game_word_widget.dart';
 
@@ -17,7 +16,7 @@ class CrownWidget extends StatefulWidget {
 class _CrownWidgetState extends State<CrownWidget> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
-  String _team = "";
+  String _team = "yellowCrown";
 
   String _getTeamImageName(TeamEnum team) {
     switch (team) {
@@ -28,7 +27,7 @@ class _CrownWidgetState extends State<CrownWidget> with SingleTickerProviderStat
         return "blueCrown";
 
       case TeamEnum.neutral:
-        return "";
+        return "yellowCrown";
     }
   }
 
@@ -36,7 +35,6 @@ class _CrownWidgetState extends State<CrownWidget> with SingleTickerProviderStat
     widget.streamTeam.listen(
       (streamTeam) {
         setState(() {
-          print(streamTeam);
           _team = _getTeamImageName(streamTeam);
         });
       },
