@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/models/themes_section.dart';
+import 'package:guessfest/menu/models/theme_words_list.dart';
 import 'package:guessfest/menu/components/menu_themes_section_widget.dart';
 
 class MenuWidget extends StatelessWidget {
   final List<ThemeSection> themes = [
     ThemeSection(
-      title: "General",
+      title: "Geral",
       themes: [
         ThemeEnum.jobs,
         ThemeEnum.brand,
@@ -19,7 +21,7 @@ class MenuWidget extends StatelessWidget {
       ],
     ),
     ThemeSection(
-      title: "Sports",
+      title: "Esportes",
       themes: [
         ThemeEnum.sports,
         ThemeEnum.soccer,
@@ -28,7 +30,7 @@ class MenuWidget extends StatelessWidget {
       ],
     ),
     ThemeSection(
-      title: "Music",
+      title: "Música",
       themes: [
         ThemeEnum.music,
         ThemeEnum.rock,
@@ -48,7 +50,7 @@ class MenuWidget extends StatelessWidget {
       ],
     ),
     ThemeSection(
-      title: "Kids",
+      title: "Infantil",
       themes: [
         ThemeEnum.kids,
         ThemeEnum.objects,
@@ -56,7 +58,7 @@ class MenuWidget extends StatelessWidget {
       ],
     ),
     ThemeSection(
-      title: "History",
+      title: "História",
       themes: [
         ThemeEnum.history,
         ThemeEnum.the80,
@@ -81,8 +83,16 @@ class MenuWidget extends StatelessWidget {
 
   MenuWidget({Key? key}) : super(key: key);
 
+  Future<void> _readWordsJson() async {
+    final String jsonString = await rootBundle.loadString('assets/data/wordsPT.json');
+    themeWords = themeWordsListFromJson(jsonString);
+
+    print(themeWords.themes.first.words);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _readWordsJson();
     return Container(
       color: const Color.fromRGBO(82, 58, 113, 1),
       child: SizedBox(

@@ -106,7 +106,7 @@ class MenuPopupWidget extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const GameWordWidget()),
+          MaterialPageRoute(builder: (context) => GameWordWidget(theme: theme)),
         );
       },
     );

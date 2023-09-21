@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/menu/models/theme_enum.dart';
+import 'package:guessfest/menu/models/theme_words_list.dart';
 import 'package:guessfest/game/components/game_pause_widget.dart';
 import 'package:guessfest/game/components/crown_widget.dart';
 import 'dart:async';
+import "dart:math";
 
 class GameWordWidget extends StatefulWidget {
+  final ThemeEnum theme;
+
   const GameWordWidget({
     Key? key,
+    required this.theme,
   }) : super(key: key);
 
   @override
@@ -28,7 +34,12 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   late Timer _timer;
   int _timeLeft = 120;
 
+  List<String> _currentWordList = [];
+  String _currentWord = "";
+
+  @override
   void initState() {
+    super.initState();
     //_startInitalCountdown();
   }
 
@@ -40,6 +51,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   void _startGame() {
     startTimer();
+    _nextWord();
     setState(() {
       _gameStatus = GameStatusEnum.activeGame;
     });
@@ -47,11 +59,17 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   void _setUserResponse({required bool isHit}) {
     _setWordAnimation(isHit: isHit);
+    if (isHit) {
+      _changeTeam();
+    }
+    Future.delayed(const Duration(milliseconds: 500)).then((val) {
+      _nextWord();
+    });
   }
 
   void _setWordAnimation({required bool isHit}) {
     setState(() {
-      _wordSize = isHit ? 50 : 34;
+      _wordSize = isHit ? 46 : 36;
       _wordColor = isHit ? Colors.green.withOpacity(0) : Colors.red.withOpacity(0);
     });
 
@@ -130,6 +148,18 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     return result;
   }
 
+  _nextWord() {
+    if (_currentWordList.isEmpty) {
+      _currentWordList = List.from(themeWords.getWords(widget.theme));
+    }
+    final index = Random().nextInt(_currentWordList.length);
+
+    setState(() {
+      _currentWord = _currentWordList[index];
+      _currentWordList.removeAt(index);
+    });
+  }
+
   @override
   void dispose() {
     _timer.cancel();
@@ -150,7 +180,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(left: 60, top: 50, right: 60, bottom: 80),
+              padding: const EdgeInsets.only(left: 60, top: 50, right: 60, bottom: 120),
               child: Center(
                 child: Column(
                   children: [
@@ -162,10 +192,13 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     _teamNameWidget(context, _playingTeam),
                     const SizedBox(height: 15),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _teamNameWidget(context, TeamEnum.pink)),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 10),
+                    Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: const SizedBox(height: 30)),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _playButton()),
-                    _wordText("aeroporto"),
-                    Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 70)),
+                    const Spacer(),
+                    Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _wordText(_currentWord)),
+                    const Spacer(),
+                    Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 10)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _actionPanelWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 20)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _pauseButton(context)),
@@ -339,8 +372,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
       icon: Image.asset('assets/images/game/buttons/hit.png'),
       iconSize: 75,
       onPressed: () {
-        _setWordAnimation(isHit: true);
-        _changeTeam();
+        _setUserResponse(isHit: true);
       },
     );
   }
