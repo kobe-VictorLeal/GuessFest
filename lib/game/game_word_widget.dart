@@ -27,6 +27,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   final StreamController<TeamEnum> _winTeamController = StreamController<TeamEnum>();
   TeamEnum _winningTeam = TeamEnum.neutral;
+  TeamEnum _winTeam = TeamEnum.neutral;
   TeamEnum _playingTeam = TeamEnum.blue;
   int _blueTeamPoints = 0;
   int _pinkTeamPoints = 0;
@@ -51,6 +52,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   void _startGame() {
     startTimer();
+    _changeTeam();
     _nextWord();
     setState(() {
       _gameStatus = GameStatusEnum.activeGame;
@@ -114,6 +116,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         if (_timeLeft == 0) {
           setState(() {
             timer.cancel();
+            _gameOver();
           });
         } else {
           _setTeamPoints();
@@ -126,13 +129,37 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     );
   }
 
+  _gameOver() {
+    if (_pinkTeamPoints == _blueTeamPoints) {
+      _winTeam = TeamEnum.neutral;
+    } else {
+      _winTeam = _pinkTeamPoints < _blueTeamPoints ? TeamEnum.pink : TeamEnum.blue;
+    }
+    setState(() {
+      _playingTeam = _winTeam;
+      _gameStatus = GameStatusEnum.willEndGame;
+    });
+
+    Future.delayed(const Duration(seconds: 2)).then((val) {
+      setState(() {
+        _gameStatus = GameStatusEnum.endGame;
+      });
+    });
+  }
+
+  _resetValues() {
+    _timeLeft = 120;
+    _blueTeamPoints = 0;
+    _pinkTeamPoints = 0;
+  }
+
   _setTeamPoints() {
     _blueTeamPoints = _blueTeamPoints + (_playingTeam == TeamEnum.pink ? 1 : 0);
     _pinkTeamPoints = _pinkTeamPoints + (_playingTeam == TeamEnum.blue ? 1 : 0);
     if (_blueTeamPoints == _pinkTeamPoints) {
       _winningTeam = TeamEnum.neutral;
     } else {
-      _winningTeam = _pinkTeamPoints > _blueTeamPoints ? TeamEnum.pink : TeamEnum.blue;
+      _winningTeam = _pinkTeamPoints < _blueTeamPoints ? TeamEnum.pink : TeamEnum.blue;
     }
   }
 
@@ -168,6 +195,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    final isEndGame = _gameStatus == GameStatusEnum.willEndGame || _gameStatus == GameStatusEnum.endGame;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -193,9 +221,11 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     const SizedBox(height: 15),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _teamNameWidget(context, TeamEnum.pink)),
                     const SizedBox(height: 10),
+                    Visibility(visible: isEndGame, child: _gameOverWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: const SizedBox(height: 30)),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _playButton()),
                     const Spacer(),
+                    Visibility(visible: _gameStatus == GameStatusEnum.endGame, child: _endGamePanelWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _wordText(_currentWord)),
                     const Spacer(),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 10)),
@@ -214,13 +244,14 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   Widget _gameHeaderWidget() {
     return AnimatedOpacity(
-      opacity: _gameStatus == GameStatusEnum.activeGame ? 1 : 0,
+      opacity: _gameStatus == GameStatusEnum.activeGame || _gameStatus == GameStatusEnum.endGame ? 1 : 0,
       duration: _defautDuration,
       child: Row(
         children: [
-          _timeText(),
+          Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _timeText()),
           const Spacer(),
-          CrownWidget(streamTeam: _winTeamController.stream),
+          CrownWidget(streamTeam: _winTeamController.stream, isEndGame: _gameStatus == GameStatusEnum.endGame),
+          Visibility(visible: _gameStatus == GameStatusEnum.endGame, child: const Spacer()),
         ],
       ),
     );
@@ -250,29 +281,34 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         break;
 
       case TeamEnum.neutral:
-        break;
+        imageName = "yellowBar.png";
+        title = "Empate";
     }
 
-    return Container(
-      padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
-      width: MediaQuery.of(context).size.width * 0.75,
-      height: 56,
-      child: Stack(
-        children: [
-          Image.asset(
-            'assets/images/game/bars/$imageName',
-            width: MediaQuery.of(context).size.width * 0.75,
-            height: 52,
-            fit: BoxFit.fill,
-          ),
-          Center(
-            child: Text(
-              title,
-              style: _setTextStyle(fontSize: 30),
-              textAlign: TextAlign.center,
+    return AnimatedOpacity(
+      opacity: _gameStatus != GameStatusEnum.willEndGame ? 1 : 0,
+      duration: _defautDuration,
+      child: Container(
+        padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
+        width: MediaQuery.of(context).size.width * 0.75,
+        height: 56,
+        child: Stack(
+          children: [
+            Image.asset(
+              'assets/images/game/bars/$imageName',
+              width: MediaQuery.of(context).size.width * 0.75,
+              height: 52,
+              fit: BoxFit.fill,
             ),
-          ),
-        ],
+            Center(
+              child: Text(
+                title,
+                style: _setTextStyle(fontSize: 30),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -280,7 +316,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   Widget _infoText(String info) {
     return AnimatedContainer(
       duration: _defautDuration,
-      height: _gameStatus == GameStatusEnum.activeGame ? 0 : 80,
+      height: _gameStatus == GameStatusEnum.activeGame || _gameStatus == GameStatusEnum.endGame ? 0 : 80,
       child: Opacity(
         opacity: _gameStatus == GameStatusEnum.preGame ? 1 : 0,
         child: Text(
@@ -387,6 +423,43 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     );
   }
 
+  Widget _endGamePanelWidget(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: _gameStatus == GameStatusEnum.endGame ? 1 : 0,
+      duration: _defautDuration,
+      child: Row(
+        children: [
+          const Spacer(),
+          _replayButton(context),
+          const Spacer(),
+          _backEndGameButton(context),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+
+  IconButton _replayButton(BuildContext context) {
+    return IconButton(
+      icon: Image.asset('assets/images/game/buttons/playAgain.png'),
+      iconSize: 75,
+      onPressed: () {
+        _resetValues();
+        _startGame();
+      },
+    );
+  }
+
+  IconButton _backEndGameButton(BuildContext context) {
+    return IconButton(
+      icon: Image.asset('assets/images/game/buttons/menu.png'),
+      iconSize: 75,
+      onPressed: () {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      },
+    );
+  }
+
   TextStyle _setTextStyle({double fontSize = 12, Color color = Colors.white}) {
     return TextStyle(
       fontFamily: "Bebas",
@@ -396,7 +469,91 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
       decoration: TextDecoration.none,
     );
   }
+
+  Widget _gameOverWidget(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: _gameStatus == GameStatusEnum.endGame ? 1 : 0,
+      duration: const Duration(seconds: 1),
+      child: Stack(children: [
+        Image.asset(
+          'assets/images/game/elements/gameOver.png',
+          height: 160,
+          width: MediaQuery.of(context).size.width * 0.75,
+          fit: BoxFit.fill,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  const Spacer(),
+                  _gameOverTitleText(),
+                  const Spacer(),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  const Spacer(),
+                  _teamScoreWidget(TeamEnum.pink),
+                  const Spacer(),
+                  const Spacer(),
+                  _teamScoreWidget(TeamEnum.blue),
+                  const Spacer(),
+                ],
+              ),
+            ],
+          ),
+        )
+      ]),
+    );
+  }
+
+  Text _gameOverTitleText() {
+    return Text(
+      "Tempo",
+      style: _setTextStyle(fontSize: 34),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _teamScoreWidget(TeamEnum team) {
+    final points = team == TeamEnum.pink ? _pinkTeamPoints : _blueTeamPoints;
+    final timeScore = _intToTimeLeft(points);
+
+    return Column(
+      children: [
+        Text(
+          team.title,
+          style: _setTextStyle(fontSize: 34),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 5),
+        Text(
+          timeScore,
+          style: _setTextStyle(fontSize: 34),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
 }
 
-enum GameStatusEnum { preGame, activeGame, endGame }
+enum GameStatusEnum { preGame, activeGame, willEndGame, endGame }
 enum TeamEnum { pink, blue, neutral }
+
+extension TeamEnumExtension on TeamEnum {
+  String get title {
+    switch (this) {
+      case TeamEnum.pink:
+        return 'Rosa';
+
+      case TeamEnum.blue:
+        return 'Azul';
+
+      case TeamEnum.neutral:
+        return 'Empate';
+    }
+  }
+}

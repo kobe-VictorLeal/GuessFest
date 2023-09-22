@@ -3,10 +3,12 @@ import 'package:guessfest/game/game_word_widget.dart';
 
 class CrownWidget extends StatefulWidget {
   final Stream<TeamEnum> streamTeam;
+  final bool isEndGame;
 
   const CrownWidget({
     Key? key,
     required this.streamTeam,
+    required this.isEndGame,
   }) : super(key: key);
 
   @override
@@ -65,7 +67,7 @@ class _CrownWidgetState extends State<CrownWidget> with SingleTickerProviderStat
       //duration: const Duration(milliseconds: 500),
       child: Image.asset(
         'assets/images/game/elements/$_team.png',
-        width: 85,
+        width: widget.isEndGame ? 140 : 85,
         fit: BoxFit.fill,
       ),
     );
