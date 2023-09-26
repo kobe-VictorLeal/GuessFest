@@ -10,28 +10,28 @@ enum ThemeEnum {
   places,
   objects,
   jobs,
-  politics,
+  policy,
   sports,
   soccer,
   NFL,
   NBA,
   films,
-  harry,
+  harrypotter,
   starwars,
   music,
   beatles,
   rock,
   kids,
   marvel,
-  DC,
+  dccomics,
   videogames,
   series,
   got,
   friends,
   vikings,
-  the80,
-  the90,
-  the2000,
+  the80s,
+  the90s,
+  the2000s,
   bible,
   celebrities,
 }
@@ -55,7 +55,7 @@ extension ThemesExtension on ThemeEnum {
         return 'Objeto';
       case ThemeEnum.jobs:
         return 'Profissão';
-      case ThemeEnum.politics:
+      case ThemeEnum.policy:
         return 'Politica';
       case ThemeEnum.sports:
         return 'Esporte';
@@ -67,7 +67,7 @@ extension ThemesExtension on ThemeEnum {
         return 'NBA';
       case ThemeEnum.films:
         return 'Filme';
-      case ThemeEnum.harry:
+      case ThemeEnum.harrypotter:
         return 'Harry Potter';
       case ThemeEnum.starwars:
         return 'Star Wars';
@@ -81,7 +81,7 @@ extension ThemesExtension on ThemeEnum {
         return 'Infantil';
       case ThemeEnum.marvel:
         return 'Marvel';
-      case ThemeEnum.DC:
+      case ThemeEnum.dccomics:
         return 'DC Comics';
       case ThemeEnum.videogames:
         return 'Videogames';
@@ -93,11 +93,11 @@ extension ThemesExtension on ThemeEnum {
         return 'Friends';
       case ThemeEnum.vikings:
         return 'Vikings';
-      case ThemeEnum.the80:
+      case ThemeEnum.the80s:
         return 'Anos 80';
-      case ThemeEnum.the90:
+      case ThemeEnum.the90s:
         return 'Anos 90';
-      case ThemeEnum.the2000:
+      case ThemeEnum.the2000s:
         return 'Anos 2000';
       case ThemeEnum.bible:
         return 'Bíblia';
@@ -124,7 +124,7 @@ extension ThemesExtension on ThemeEnum {
         return "Utensílios do cotidiano";
       case ThemeEnum.jobs:
         return "";
-      case ThemeEnum.politics:
+      case ThemeEnum.policy:
         return "Acontecimentos e personagens da política brasileira";
       case ThemeEnum.sports:
         return "Palavras atléticas de quase todos os esportes";
@@ -136,7 +136,7 @@ extension ThemesExtension on ThemeEnum {
         return "Os times, jogadores e a história da NBA";
       case ThemeEnum.films:
         return "Filmes e atores clássicos da telona na sua TV";
-      case ThemeEnum.harry:
+      case ThemeEnum.harrypotter:
         return "O menino bruxo que encantou o mundo";
       case ThemeEnum.starwars:
         return "Vença ou não vença, não existe tentar";
@@ -150,7 +150,7 @@ extension ThemesExtension on ThemeEnum {
         return "Palavras fáceis para jogar com toda a família";
       case ThemeEnum.marvel:
         return "Os maiores heróis e vilões da Terra";
-      case ThemeEnum.DC:
+      case ThemeEnum.dccomics:
         return "Os superheróis mais famosos e seus vilões";
       case ThemeEnum.videogames:
         return "O melhor do entretenimento eletrônico";
@@ -162,11 +162,11 @@ extension ThemesExtension on ThemeEnum {
         return "6 amigos, uma galinha e um pato";
       case ThemeEnum.vikings:
         return "A batalha pra descobrir o verdadeiro Rei";
-      case ThemeEnum.the80:
+      case ThemeEnum.the80s:
         return "Disco não morreu. Não aqui, ao menos";
-      case ThemeEnum.the90:
+      case ThemeEnum.the90s:
         return "Música, TV e a cara dos anos 1990";
-      case ThemeEnum.the2000:
+      case ThemeEnum.the2000s:
         return "Os marcos que abalaram o mundo nos anos 2000";
       case ThemeEnum.bible:
         return "Pessoas e histórias do livro mais lido do mundo";

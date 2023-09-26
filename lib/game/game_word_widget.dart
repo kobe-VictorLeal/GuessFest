@@ -179,12 +179,17 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     if (_currentWordList.isEmpty) {
       _currentWordList = List.from(themeWords.getWords(widget.theme));
     }
-    final index = Random().nextInt(_currentWordList.length);
 
-    setState(() {
-      _currentWord = _currentWordList[index];
-      _currentWordList.removeAt(index);
-    });
+    if (_currentWordList.isNotEmpty) {
+      final index = Random().nextInt(_currentWordList.length);
+
+      setState(() {
+        _currentWord = _currentWordList[index];
+        _currentWordList.removeAt(index);
+      });
+    } else {
+      _currentWord = "tema com erro";
+    }
   }
 
   @override

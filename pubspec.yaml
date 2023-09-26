@@ -114,12 +114,12 @@ flutter:
     - assets/images/menu/themes/bible.png
     - assets/images/menu/themes/brand.png
     - assets/images/menu/themes/celebrities.png
-    - assets/images/menu/themes/DC.png
+    - assets/images/menu/themes/dccomics.png
     - assets/images/menu/themes/easy.png
     - assets/images/menu/themes/food.png
     - assets/images/menu/themes/friends.png
     - assets/images/menu/themes/got.png
-    - assets/images/menu/themes/harry.png
+    - assets/images/menu/themes/harrypotter.png
     - assets/images/menu/themes/history.png
     - assets/images/menu/themes/jobs.png
     - assets/images/menu/themes/marvel.png
@@ -130,15 +130,15 @@ flutter:
     - assets/images/menu/themes/NFL.png
     - assets/images/menu/themes/objects.png
     - assets/images/menu/themes/places.png
-    - assets/images/menu/themes/politics.png
+    - assets/images/menu/themes/policy.png
     - assets/images/menu/themes/rock.png
     - assets/images/menu/themes/soccer.png
     - assets/images/menu/themes/sports.png
     - assets/images/menu/themes/kids.png
     - assets/images/menu/themes/starwars.png
-    - assets/images/menu/themes/the80.png
-    - assets/images/menu/themes/the90.png
-    - assets/images/menu/themes/the2000.png
+    - assets/images/menu/themes/the80s.png
+    - assets/images/menu/themes/the90s.png
+    - assets/images/menu/themes/the2000s.png
     - assets/images/menu/themes/tv.png
     - assets/images/menu/themes/videogames.png
     - assets/images/menu/themes/vikings.png
