@@ -86,8 +86,6 @@ class MenuWidget extends StatelessWidget {
   Future<void> _readWordsJson() async {
     final String jsonString = await rootBundle.loadString('assets/data/wordsPT.json');
     themeWords = themeWordsListFromJson(jsonString);
-
-    print(themeWords.themes.first.words);
   }
 
   @override
@@ -96,26 +94,20 @@ class MenuWidget extends StatelessWidget {
     return Container(
       color: const Color.fromRGBO(82, 58, 113, 1),
       child: SizedBox(
-          height: MediaQuery.of(context).size.height - 90,
-          child: Column(
-            children: [
-              ThemesSectionWidget(title: themes[0].title, themes: themes[0].themes),
-              ThemesSectionWidget(title: themes[1].title, themes: themes[1].themes),
-              ThemesSectionWidget(title: themes[2].title, themes: themes[2].themes),
-              ThemesSectionWidget(title: themes[3].title, themes: themes[3].themes),
-              //ThemesSectionWidget(title: themes[4].title, themes: themes[4].themes),
-              ThemesSectionWidget(title: themes[5].title, themes: themes[5].themes),
-              ThemesSectionWidget(title: themes[6].title, themes: themes[6].themes)
-            ],
-          )),
+        height: MediaQuery.of(context).size.height - 90,
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: themes.length,
+          itemBuilder: (ctx, index) {
+            return Column(
+              children: [
+                ThemesSectionWidget(title: themes[index].title, themes: themes[index].themes),
+                Visibility(visible: index == themes.length - 1, child: const SizedBox(height: 200))
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }
-
-// ERROR: Message from debugger: Terminated due to memory issue
-/*ListView.builder(
-    scrollDirection: Axis.vertical,
-    itemCount: themes.length,
-    itemBuilder: (ctx, index) {
-      return ThemesSectionWidget(title: themes[index].title, themes: themes[index].themes);
-}),*/

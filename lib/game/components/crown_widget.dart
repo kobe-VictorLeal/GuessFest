@@ -68,6 +68,7 @@ class _CrownWidgetState extends State<CrownWidget> with SingleTickerProviderStat
       child: Image.asset(
         'assets/images/game/elements/$_team.png',
         width: widget.isEndGame ? 140 : 85,
+        cacheWidth: 200,
         fit: BoxFit.fill,
       ),
     );

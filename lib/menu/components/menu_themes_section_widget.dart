@@ -106,7 +106,10 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
                     onTap: () {
                       _openPopup(context, themes[index]);
                     },
-                    child: Image.asset('assets/images/menu/themes/${themes[index].name}.png'),
+                    child: Image.asset(
+                      'assets/images/menu/themes/${themes[index].name}.png',
+                      cacheWidth: 500,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
