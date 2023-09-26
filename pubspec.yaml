@@ -85,6 +85,7 @@ flutter:
     # Bar Game
     - assets/images/game/bars/blueTeam.png
     - assets/images/game/bars/pinkTeam.png
+    - assets/images/game/bars/yellowBar.png
 
     # Elements Game
     - assets/images/game/elements/01.png
@@ -96,6 +97,8 @@ flutter:
     - assets/images/game/elements/yellowCrown.png
     - assets/images/game/elements/balloonTop.png
     - assets/images/game/elements/balloonBottom.png
+    - assets/images/game/elements/gameOver.png
+    - assets/images/game/elements/arrow.png
 
     # Popup Menu
     - assets/images/menu/popup/popupTheme.png

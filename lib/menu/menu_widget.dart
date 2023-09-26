@@ -86,8 +86,6 @@ class MenuWidget extends StatelessWidget {
   Future<void> _readWordsJson() async {
     final String jsonString = await rootBundle.loadString('assets/data/wordsPT.json');
     themeWords = themeWordsListFromJson(jsonString);
-
-    print(themeWords.themes.first.words);
   }
 
   @override
@@ -98,11 +96,17 @@ class MenuWidget extends StatelessWidget {
       child: SizedBox(
         height: MediaQuery.of(context).size.height - 90,
         child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: themes.length,
-            itemBuilder: (ctx, index) {
-              return ThemesSectionWidget(title: themes[index].title, themes: themes[index].themes);
-            }),
+          scrollDirection: Axis.vertical,
+          itemCount: themes.length,
+          itemBuilder: (ctx, index) {
+            return Column(
+              children: [
+                ThemesSectionWidget(title: themes[index].title, themes: themes[index].themes),
+                Visibility(visible: index == themes.length - 1, child: const SizedBox(height: 200))
+              ],
+            );
+          },
+        ),
       ),
     );
   }

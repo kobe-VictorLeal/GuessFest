@@ -69,7 +69,7 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
 
   Widget _sectionTitleWidget(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(left: 30, top: 15, right: 15, bottom: 20),
+        padding: const EdgeInsets.only(left: 20, top: 15, right: 15, bottom: 20),
         height: 100,
         width: MediaQuery.of(context).size.width * 0.9,
         child: Stack(
@@ -106,7 +106,10 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
                     onTap: () {
                       _openPopup(context, themes[index]);
                     },
-                    child: Image.asset('assets/images/menu/themes/${themes[index].name}.png'),
+                    child: Image.asset(
+                      'assets/images/menu/themes/${themes[index].name}.png',
+                      cacheWidth: 500,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(

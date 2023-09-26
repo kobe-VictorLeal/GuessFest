@@ -40,7 +40,9 @@ class MenuPopupWidget extends StatelessWidget {
                   const SizedBox(height: 10),
                   _themeImage(),
                   const SizedBox(height: 15),
+                  const Spacer(),
                   _descriptionText(),
+                  const Spacer(),
                   const SizedBox(height: 10),
                   const Spacer(),
                   _playButton(context),
@@ -75,17 +77,20 @@ class MenuPopupWidget extends StatelessWidget {
     );
   }
 
-  Text _descriptionText() {
-    return Text(
-      theme.description,
-      style: const TextStyle(
-        fontFamily: "Avenir",
-        fontSize: 25,
-        color: Colors.white,
-        fontWeight: FontWeight.normal,
-        decoration: TextDecoration.none,
+  Widget _descriptionText() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, right: 15),
+      child: Text(
+        theme.description,
+        style: const TextStyle(
+          fontFamily: "Avenir",
+          fontSize: 25,
+          color: Colors.white,
+          fontWeight: FontWeight.normal,
+          decoration: TextDecoration.none,
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 
