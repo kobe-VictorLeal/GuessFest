@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guessfest/menu/components/menu_popup_widget.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
+import 'package:guessfest/menu/resources/menu_sound.dart';
 
 class ThemesSectionWidget extends StatefulWidget {
   final String title;
@@ -17,6 +18,8 @@ class ThemesSectionWidget extends StatefulWidget {
 }
 
 class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTickerProviderStateMixin {
+  final MenuSound _sound = MenuSound();
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 700),
     vsync: this,
@@ -26,18 +29,27 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
     curve: Curves.fastOutSlowIn,
   );
 
+  String _barColorName = "greenBar";
+
   _runExpandSection() {
     if (_animation.status != AnimationStatus.completed) {
+      setState(() {
+        _barColorName = "pinkBar";
+      });
       _controller.forward();
     } else {
+      setState(() {
+        _barColorName = "greenBar";
+      });
       _controller.animateBack(
         0,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 400),
       );
     }
   }
 
   _openPopup(BuildContext context, ThemeEnum theme) {
+    _sound.playSelected();
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -75,9 +87,10 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
         child: Stack(
           children: [
             Image.asset(
-              'assets/images/menu/bars/greenBar.png',
+              'assets/images/menu/bars/$_barColorName.png',
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.fill,
+              cacheWidth: 500,
             ),
             Center(
               child: Text(

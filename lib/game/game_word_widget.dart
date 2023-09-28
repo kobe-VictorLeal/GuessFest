@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/game/resources/game_sound.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/models/theme_words_list.dart';
 import 'package:guessfest/game/components/game_pause_widget.dart';
@@ -32,11 +33,16 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   int _blueTeamPoints = 0;
   int _pinkTeamPoints = 0;
 
+  late Timer _countdownTimer;
+  int _countdownLeft = 2;
+
   late Timer _timer;
   int _timeLeft = 120;
 
   List<String> _currentWordList = [];
   String _currentWord = "";
+
+  final GameSound _sound = GameSound();
 
   @override
   void initState() {
@@ -45,12 +51,31 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   void _startInitalCountdown() {
-    Future.delayed(const Duration(seconds: 0)).then((val) {
-      _startGame();
+    _sound.playCountdownStart();
+    setState(() {
+      _gameStatus = GameStatusEnum.countdown;
     });
+
+    const oneSec = Duration(seconds: 1);
+    _countdownTimer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_countdownLeft == 0) {
+          setState(() {
+            timer.cancel();
+            _startGame();
+          });
+        } else {
+          setState(() {
+            _countdownLeft--;
+          });
+        }
+      },
+    );
   }
 
   void _startGame() {
+    _sound.playMusic();
     startTimer();
     _changeTeam();
     _nextWord();
@@ -62,8 +87,12 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   void _setUserResponse({required bool isHit}) {
     _setWordAnimation(isHit: isHit);
     if (isHit) {
+      _sound.playHit();
       _changeTeam();
+    } else {
+      _sound.playMiss();
     }
+
     Future.delayed(const Duration(milliseconds: 500)).then((val) {
       _nextWord();
     });
@@ -84,6 +113,8 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   _openPause(BuildContext context) {
+    _sound.pauseMusic();
+    _sound.playPause();
     _timer.cancel();
     showDialog(
         context: context,
@@ -94,6 +125,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   _returnGame(BuildContext context) {
+    _sound.playMusic();
     Navigator.pop(context);
     startTimer();
   }
@@ -124,30 +156,36 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
             _timeLeft--;
             _winTeamController.add(_winningTeam);
           });
+          if (_timeLeft == 14) {
+            _sound.playCountdownEnd();
+          }
         }
       },
     );
   }
 
   _gameOver() {
+    _sound.stopMusic();
     if (_pinkTeamPoints == _blueTeamPoints) {
       _winTeam = TeamEnum.neutral;
     } else {
       _winTeam = _pinkTeamPoints < _blueTeamPoints ? TeamEnum.pink : TeamEnum.blue;
     }
     setState(() {
-      _playingTeam = _winTeam;
       _gameStatus = GameStatusEnum.willEndGame;
     });
 
-    Future.delayed(const Duration(seconds: 2)).then((val) {
+    Future.delayed(const Duration(seconds: 1)).then((val) {
+      _sound.playGameOver();
       setState(() {
+        _playingTeam = _winTeam;
         _gameStatus = GameStatusEnum.endGame;
       });
     });
   }
 
   _resetValues() {
+    _countdownLeft = 2;
     _timeLeft = 120;
     _blueTeamPoints = 0;
     _pinkTeamPoints = 0;
@@ -195,6 +233,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   @override
   void dispose() {
     _timer.cancel();
+    _countdownTimer.cancel();
     super.dispose();
   }
 
@@ -228,6 +267,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     const SizedBox(height: 10),
                     Visibility(visible: isEndGame, child: _gameOverWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: const SizedBox(height: 30)),
+                    Visibility(visible: _gameStatus == GameStatusEnum.countdown, child: _countdownWidget()),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _playButton()),
                     const Spacer(),
                     Visibility(visible: _gameStatus == GameStatusEnum.endGame, child: _endGamePanelWidget(context)),
@@ -259,6 +299,20 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
           Visibility(visible: _gameStatus == GameStatusEnum.endGame, child: const Spacer()),
         ],
       ),
+    );
+  }
+
+  Widget _countdownWidget() {
+    return Row(
+      children: [
+        const Spacer(),
+        Image.asset(
+          'assets/images/game/elements/0${_countdownLeft + 1}.png',
+          height: 40,
+          cacheWidth: 200,
+        ),
+        const Spacer(),
+      ],
     );
   }
 
@@ -374,6 +428,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
             icon: Image.asset('assets/images/game/buttons/back.png'),
             iconSize: 45,
             onPressed: () {
+              _sound.playBack();
               Navigator.pop(context);
             },
           ),
@@ -450,7 +505,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
       iconSize: 75,
       onPressed: () {
         _resetValues();
-        _startGame();
+        _startInitalCountdown();
       },
     );
   }
@@ -545,7 +600,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 }
 
-enum GameStatusEnum { preGame, activeGame, willEndGame, endGame }
+enum GameStatusEnum { preGame, countdown, activeGame, willEndGame, endGame }
 enum TeamEnum { pink, blue, neutral }
 
 extension TeamEnumExtension on TeamEnum {
