@@ -42,6 +42,8 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   List<String> _currentWordList = [];
   String _currentWord = "";
 
+  String _infoTextString = "Escolham entre si os seus times";
+
   final GameSound _sound = GameSound();
 
   @override
@@ -53,6 +55,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   void _startInitalCountdown() {
     _sound.playCountdownStart();
     setState(() {
+      _infoTextString = "A partida começa com";
       _gameStatus = GameStatusEnum.countdown;
     });
 
@@ -234,6 +237,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   void dispose() {
     _timer.cancel();
     _countdownTimer.cancel();
+    _sound.stopMusic();
     super.dispose();
   }
 
@@ -256,10 +260,10 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
               child: Center(
                 child: Column(
                   children: [
-                    Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _backButton()),
+                    _backButton(),
                     _gameHeaderWidget(),
                     const SizedBox(height: 10),
-                    _infoText("Escolham entre si os seus times"),
+                    _infoText(_infoTextString),
                     const SizedBox(height: 5),
                     _teamNameWidget(context, _playingTeam),
                     const SizedBox(height: 15),
@@ -377,7 +381,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
       duration: _defautDuration,
       height: _gameStatus == GameStatusEnum.activeGame || _gameStatus == GameStatusEnum.endGame ? 0 : 80,
       child: Opacity(
-        opacity: _gameStatus == GameStatusEnum.preGame ? 1 : 0,
+        opacity: _gameStatus == GameStatusEnum.preGame || _gameStatus == GameStatusEnum.countdown ? 1 : 0,
         child: Text(
           info,
           style: _setTextStyle(fontSize: 35),
@@ -424,13 +428,16 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
       duration: _defautDuration,
       child: Row(
         children: [
-          IconButton(
-            icon: Image.asset('assets/images/game/buttons/back.png'),
-            iconSize: 45,
-            onPressed: () {
-              _sound.playBack();
-              Navigator.pop(context);
-            },
+          Opacity(
+            opacity: _gameStatus == GameStatusEnum.preGame ? 1 : 0,
+            child: IconButton(
+              icon: Image.asset('assets/images/game/buttons/back.png'),
+              iconSize: 45,
+              onPressed: () {
+                _sound.playBack();
+                Navigator.pop(context);
+              },
+            ),
           ),
           const Spacer(),
         ],
