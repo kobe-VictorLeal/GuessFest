@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:guessfest/game/game_word_widget.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
+import 'package:guessfest/menu/resources/menu_sound.dart';
 
 class MenuPopupWidget extends StatelessWidget {
   final ThemeEnum theme;
 
-  const MenuPopupWidget({
+  MenuPopupWidget({
     Key? key,
     required this.theme,
   }) : super(key: key);
+
+  final MenuSound _sound = MenuSound();
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +77,7 @@ class MenuPopupWidget extends StatelessWidget {
     return Image.asset(
       'assets/images/menu/themes/${theme.name}.png',
       width: 180,
+      cacheWidth: 500,
     );
   }
 
@@ -99,6 +103,7 @@ class MenuPopupWidget extends StatelessWidget {
       icon: Image.asset('assets/images/menu/buttons/exit.png'),
       iconSize: 40,
       onPressed: () {
+        _sound.playBack();
         Navigator.pop(context);
       },
     );
@@ -109,6 +114,7 @@ class MenuPopupWidget extends StatelessWidget {
       icon: Image.asset('assets/images/menu/buttons/play.png'),
       iconSize: 60,
       onPressed: () {
+        _sound.playStart();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => GameWordWidget(theme: theme)),
