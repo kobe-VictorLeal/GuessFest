@@ -1,4 +1,4 @@
-package com.example.guessfest
+package com.vtr.guessfest
 
 import io.flutter.embedding.android.FlutterActivity
 
