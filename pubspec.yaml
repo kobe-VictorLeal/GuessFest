@@ -46,6 +46,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  shared_preferences: ^2.0.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -110,6 +111,11 @@ flutter:
     # Settings
     - assets/images/menu/settings/background.png
     - assets/images/menu/settings/lineSettings.png
+    - assets/images/menu/settings/settingSelectCircle.png
+    - assets/images/menu/settings/soundOffYellow.png
+    - assets/images/menu/settings/soundOnYellow.png
+    - assets/images/menu/settings/soundOffWhite.png
+    - assets/images/menu/settings/soundOnWhite.png
 
     # Tutorial
     - assets/images/menu/tutorial/tutorial.png
