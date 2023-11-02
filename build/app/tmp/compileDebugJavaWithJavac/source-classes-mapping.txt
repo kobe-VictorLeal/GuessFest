@@ -1,4 +1,4 @@
 io/flutter/plugins/GeneratedPluginRegistrant.java
  io.flutter.plugins.GeneratedPluginRegistrant
-com/example/guessfest/BuildConfig.java
- com.example.guessfest.BuildConfig
+com/vtr/guessfest/BuildConfig.java
+ com.vtr.guessfest.BuildConfig
