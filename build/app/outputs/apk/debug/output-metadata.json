@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.guessfest",
+  "applicationId": "com.vtr.guessfest",
   "variantName": "processDebugResources",
   "elements": [
     {
