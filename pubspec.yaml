@@ -109,6 +109,10 @@ flutter:
 
     # Settings
     - assets/images/menu/settings/background.png
+    - assets/images/menu/settings/lineSettings.png
+
+    # Tutorial
+    - assets/images/menu/tutorial/tutorial.png
 
     # Themes
     - assets/images/menu/themes/actions.png
