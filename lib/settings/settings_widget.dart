@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 //import 'package:guessfest/settings/shared_preferences.dart';
 
-class SettingsWidget extends StatelessWidget {
+bool isSoundActive = true;
+bool isMusicActive = true;
+
+class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
 
+  @override
+  State<SettingsWidget> createState() => _SettingsWidgetState();
+}
+
+class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,20 +29,31 @@ class SettingsWidget extends StatelessWidget {
           child: Column(
             children: [
               _backButton(context),
-              const SizedBox(height: 60),
-              _textWidget(text: "Efeitos sonoros", fontSize: 36),
-              Image.asset(
-                "assets/images/menu/settings/lineSettings.png",
-                width: 180,
-                height: 7,
-                fit: BoxFit.fill,
-              ),
               const SizedBox(height: 20),
+              sectionTitleWidget("Efeitos sonoros"),
               _soundsRow(context),
+              sectionTitleWidget("Música de fundo"),
+              _musicRow(context),
             ],
           ),
         )
       ]),
+    );
+  }
+
+  Column sectionTitleWidget(String title) {
+    return Column(
+      children: [
+        const SizedBox(height: 40),
+        _textWidget(text: title, fontSize: 36),
+        Image.asset(
+          "assets/images/menu/settings/lineSettings.png",
+          width: 180,
+          height: 7,
+          fit: BoxFit.fill,
+        ),
+        const SizedBox(height: 20),
+      ],
     );
   }
 
@@ -74,18 +93,50 @@ class SettingsWidget extends StatelessWidget {
       children: [
         const Spacer(),
         IconButton(
-          icon: Image.asset('assets/images/menu/settings/soundOnWhite.png'),
+          icon: Image.asset('assets/images/menu/settings/soundOn${isSoundActive ? 'Yellow' : 'White'}.png'),
           iconSize: 60,
           onPressed: () {
-            //setActiveSoundValue(value: true);
+            setState(() {
+              isSoundActive = true;
+            });
           },
         ),
         const SizedBox(width: 40),
         IconButton(
-          icon: Image.asset('assets/images/menu/settings/soundOffWhite.png'),
+          icon: Image.asset('assets/images/menu/settings/soundOff${isSoundActive ? 'White' : 'Yellow'}.png'),
           iconSize: 60,
           onPressed: () {
-            //setActiveSoundValue(value: false);
+            setState(() {
+              isSoundActive = false;
+            });
+          },
+        ),
+        const Spacer(),
+      ],
+    );
+  }
+
+  Widget _musicRow(BuildContext context) {
+    return Row(
+      children: [
+        const Spacer(),
+        IconButton(
+          icon: Image.asset('assets/images/menu/settings/soundOn${isMusicActive ? 'Yellow' : 'White'}.png'),
+          iconSize: 60,
+          onPressed: () {
+            setState(() {
+              isMusicActive = true;
+            });
+          },
+        ),
+        const SizedBox(width: 40),
+        IconButton(
+          icon: Image.asset('assets/images/menu/settings/soundOff${isMusicActive ? 'White' : 'Yellow'}.png'),
+          iconSize: 60,
+          onPressed: () {
+            setState(() {
+              isMusicActive = false;
+            });
           },
         ),
         const Spacer(),
