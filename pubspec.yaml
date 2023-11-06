@@ -109,6 +109,16 @@ flutter:
 
     # Settings
     - assets/images/menu/settings/background.png
+    - assets/images/menu/settings/screen.png
+    - assets/images/menu/settings/lineSettings.png
+    - assets/images/menu/settings/settingSelectCircle.png
+    - assets/images/menu/settings/soundOffYellow.png
+    - assets/images/menu/settings/soundOnYellow.png
+    - assets/images/menu/settings/soundOffWhite.png
+    - assets/images/menu/settings/soundOnWhite.png
+
+    # Tutorial
+    - assets/images/menu/tutorial/tutorial.png
 
     # Themes
     - assets/images/menu/themes/actions.png
