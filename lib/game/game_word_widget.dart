@@ -377,8 +377,6 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   Widget _infoText(String info) {
-    AnimatedContainer();
-
     return AnimatedContainer(
       duration: _defautDuration,
       height: _gameStatus == GameStatusEnum.activeGame || _gameStatus == GameStatusEnum.endGame ? 0 : 80,

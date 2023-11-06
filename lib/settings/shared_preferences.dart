@@ -2,8 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 getActiveSoundValue() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool value = prefs.getBool('isSoundActive');
-  return value;
+  return prefs.getBool('isSoundActive');
 }
 
 getActiveMusicValue() async {
