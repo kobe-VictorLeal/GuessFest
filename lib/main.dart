@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guessfest/menu/menu_widget.dart';
+import 'package:guessfest/tutorial/tutorial_widget.dart';
+import 'package:guessfest/settings/settings_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -67,10 +69,10 @@ class MainWidget extends StatelessWidget {
       icon: Image.asset('assets/images/menu/buttons/settings.png'),
       iconSize: 45,
       onPressed: () {
-        /*Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const SettingsWidget()),
-        );*/
+        );
       },
     );
   }
@@ -80,10 +82,10 @@ class MainWidget extends StatelessWidget {
       icon: Image.asset('assets/images/menu/buttons/tutorial.png'),
       iconSize: 45,
       onPressed: () {
-        /*Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const TutorialWidget()),
-        );*/
+        );
       },
     );
   }
