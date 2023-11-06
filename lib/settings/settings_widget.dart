@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:guessfest/settings/shared_preferences.dart';
-
-bool isSoundActive = true;
-bool isMusicActive = true;
+import 'package:guessfest/menu/resources/menu_sound.dart';
+import 'package:guessfest/settings/shared_preferences.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
@@ -12,6 +10,8 @@ class SettingsWidget extends StatefulWidget {
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
+  final MenuSound _sound = MenuSound();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +64,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           icon: Image.asset('assets/images/game/buttons/back.png'),
           iconSize: 45,
           onPressed: () {
+            _sound.playBack();
             Navigator.pop(context);
           },
         ),
@@ -98,6 +99,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           onPressed: () {
             setState(() {
               isSoundActive = true;
+              _sound.playSelected();
             });
           },
         ),
@@ -125,6 +127,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           iconSize: 60,
           onPressed: () {
             setState(() {
+              _sound.playSelected();
               isMusicActive = true;
             });
           },
@@ -135,6 +138,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           iconSize: 60,
           onPressed: () {
             setState(() {
+              _sound.playSelected();
               isMusicActive = false;
             });
           },

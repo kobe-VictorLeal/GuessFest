@@ -1,4 +1,5 @@
 import 'package:flame_audio/flame_audio.dart';
+import 'package:guessfest/settings/shared_preferences.dart';
 
 class MenuSound {
   MenuSound() {
@@ -10,14 +11,20 @@ class MenuSound {
   }
 
   playSelected() {
-    FlameAudio.play('Selected.wav');
+    if (isSoundActive) {
+      FlameAudio.play('Selected.wav');
+    }
   }
 
   playBack() {
-    FlameAudio.play('Back.wav');
+    if (isSoundActive) {
+      FlameAudio.play('Back.wav');
+    }
   }
 
   playStart() {
-    FlameAudio.play('EnterGame.mp3');
+    if (isSoundActive) {
+      FlameAudio.play('EnterGame.mp3');
+    }
   }
 }

@@ -40,13 +40,13 @@ class MenuWidget extends StatelessWidget {
     ThemeSection(
       title: "TV",
       themes: [
-        ThemeEnum.series,
         ThemeEnum.films,
         ThemeEnum.got,
         ThemeEnum.harrypotter,
         ThemeEnum.starwars,
         ThemeEnum.friends,
         ThemeEnum.vikings,
+        ThemeEnum.series,
       ],
     ),
     ThemeSection(

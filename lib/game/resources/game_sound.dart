@@ -1,4 +1,5 @@
 import 'package:flame_audio/flame_audio.dart';
+import 'package:guessfest/settings/shared_preferences.dart';
 
 class GameSound {
   GameSound() {
@@ -10,7 +11,9 @@ class GameSound {
   }
 
   playMusic() {
-    FlameAudio.bgm.play('Umbrella.mp3');
+    if (isMusicActive) {
+      FlameAudio.bgm.play('Umbrella.mp3');
+    }
   }
 
   pauseMusic() {
@@ -22,38 +25,56 @@ class GameSound {
   }
 
   playHit() {
-    FlameAudio.play('Hit.wav');
+    if (isSoundActive) {
+      FlameAudio.play('Hit.wav');
+    }
   }
 
   playMiss() {
-    FlameAudio.play('Miss.wav');
+    if (isSoundActive) {
+      FlameAudio.play('Miss.wav');
+    }
   }
 
   playCountdownStart() {
-    FlameAudio.play('321.mp3');
+    if (isSoundActive) {
+      FlameAudio.play('321.mp3');
+    }
   }
 
   playCountdownEnd() {
-    FlameAudio.play('Countdown.mp3');
+    if (isSoundActive) {
+      FlameAudio.play('Countdown.mp3');
+    }
   }
 
   playGameOver() {
-    FlameAudio.play('GameOver.mp3');
+    if (isSoundActive) {
+      FlameAudio.play('GameOver.mp3');
+    }
   }
 
   playPause() {
-    FlameAudio.play('Pause.wav');
+    if (isSoundActive) {
+      FlameAudio.play('Pause.wav');
+    }
   }
 
   playSelected() {
-    FlameAudio.play('Selected.wav');
+    if (isSoundActive) {
+      FlameAudio.play('Selected.wav');
+    }
   }
 
   playBack() {
-    FlameAudio.play('Back.wav');
+    if (isSoundActive) {
+      FlameAudio.play('Back.wav');
+    }
   }
 
   playReplay() {
-    FlameAudio.play('EnterGame.mp3');
+    if (isSoundActive) {
+      FlameAudio.play('EnterGame.mp3');
+    }
   }
 }
