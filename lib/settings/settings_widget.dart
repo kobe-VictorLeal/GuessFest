@@ -15,26 +15,29 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(82, 58, 113, 1),
       body: Stack(children: [
         Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/menu/settings/background.png"),
-              fit: BoxFit.none,
+              fit: BoxFit.cover,
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 0),
-          child: Column(
-            children: [
-              _backButton(context),
-              const SizedBox(height: 20),
-              sectionTitleWidget("Efeitos sonoros"),
-              _soundsRow(context),
-              sectionTitleWidget("Música de fundo"),
-              _musicRow(context),
-            ],
+        SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 0),
+            child: Column(
+              children: [
+                _backButton(context),
+                const SizedBox(height: 20),
+                sectionTitleWidget("Efeitos sonoros"),
+                _soundsRow(context),
+                sectionTitleWidget("Música de fundo"),
+                _musicRow(context),
+              ],
+            ),
           ),
         )
       ]),

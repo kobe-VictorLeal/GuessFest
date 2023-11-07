@@ -6,17 +6,20 @@ class TutorialWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/menu/tutorial/tutorial.png"),
-              fit: BoxFit.cover,
+      backgroundColor: const Color.fromRGBO(45, 135, 123, 1),
+      body: SafeArea(
+        child: Stack(children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/menu/tutorial/tutorial.png"),
+                fit: BoxFit.fitWidth,
+              ),
             ),
           ),
-        ),
-        _backButton(context),
-      ]),
+          _backButton(context),
+        ]),
+      ),
     );
   }
 
