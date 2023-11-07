@@ -46,14 +46,9 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   final GameSound _sound = GameSound();
 
-  @override
-  void initState() {
-    super.initState();
-    //_startInitalCountdown();
-  }
-
   void _startInitalCountdown() {
     _sound.playCountdownStart();
+    _sortTeam();
     setState(() {
       _infoTextString = "A partida começa com";
       _gameStatus = GameStatusEnum.countdown;
@@ -80,7 +75,6 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   void _startGame() {
     _sound.playMusic();
     startTimer();
-    _changeTeam();
     _nextWord();
     setState(() {
       _gameStatus = GameStatusEnum.activeGame;
@@ -143,6 +137,13 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     });
   }
 
+  _sortTeam() {
+    setState(() {
+      _winningTeam = TeamEnum.neutral;
+      _playingTeam = Random().nextInt(100) % 2 == 0 ? TeamEnum.blue : TeamEnum.pink;
+    });
+  }
+
   void startTimer() {
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
@@ -195,8 +196,8 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   _setTeamPoints() {
-    _blueTeamPoints = _blueTeamPoints + (_playingTeam == TeamEnum.pink ? 1 : 0);
-    _pinkTeamPoints = _pinkTeamPoints + (_playingTeam == TeamEnum.blue ? 1 : 0);
+    _blueTeamPoints = _blueTeamPoints + (_playingTeam == TeamEnum.blue ? 1 : 0);
+    _pinkTeamPoints = _pinkTeamPoints + (_playingTeam == TeamEnum.pink ? 1 : 0);
     if (_blueTeamPoints == _pinkTeamPoints) {
       _winningTeam = TeamEnum.neutral;
     } else {
