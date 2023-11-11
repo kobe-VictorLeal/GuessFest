@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/resources/resources.dart';
 
 class GamePauseWidget extends StatelessWidget {
   final void Function(BuildContext) returnAction;
