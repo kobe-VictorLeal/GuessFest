@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:guessfest/resources/resources.dart';
 
 class GamePauseWidget extends StatelessWidget {
   final void Function(BuildContext) returnAction;
@@ -14,9 +13,7 @@ class GamePauseWidget extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Container(
-      padding: Resources().isBigScreen(context)
-          ? EdgeInsets.only(left: width * 0.15, top: height * 0.1, right: width * 0.15, bottom: height * 0.2)
-          : const EdgeInsets.fromLTRB(60, 60, 60, 100),
+      padding: EdgeInsets.only(left: width * 0.15, top: height * 0.1, right: width * 0.15, bottom: height * 0.2),
       child: Column(
         children: [
           Center(

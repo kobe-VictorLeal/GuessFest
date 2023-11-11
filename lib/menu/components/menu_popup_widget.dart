@@ -20,8 +20,8 @@ class MenuPopupWidget extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Container(
       padding: Resources().isBigScreen(context)
-          ? EdgeInsets.only(left: width * 0.25, top: height * 0.2, right: width * 0.25, bottom: height * 0.30)
-          : const EdgeInsets.fromLTRB(30, 80, 30, 100),
+          ? EdgeInsets.only(left: width * 0.25, top: height * 0.2, right: width * 0.25, bottom: height * 0.3)
+          : EdgeInsets.only(left: width * 0.09, top: height * 0.08, right: width * 0.09, bottom: height * 0.23),
       child: Stack(
         alignment: Alignment.center,
         children: [

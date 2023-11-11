@@ -262,7 +262,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
             child: Padding(
               padding: Resources().isBigScreen(context)
                   ? EdgeInsets.only(left: width * 0.15, top: height * 0.1, right: width * 0.15, bottom: height * 0.2)
-                  : const EdgeInsets.only(left: 60, top: 50, right: 60, bottom: 120),
+                  : EdgeInsets.only(left: width * 0.15, top: height * 0.07, right: width * 0.15, bottom: height * 0.2),
               child: Center(
                 child: Column(
                   children: [
