@@ -74,7 +74,14 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         const Spacer(),
         _textWidget(text: "Ajustes"),
         const Spacer(),
-        const Spacer(),
+        Opacity(
+          opacity: 0,
+          child: IconButton(
+            icon: Image.asset(''),
+            iconSize: 45,
+            onPressed: () {},
+          ),
+        ),
       ],
     );
   }

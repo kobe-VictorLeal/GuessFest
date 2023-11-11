@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guessfest/game/game_word_widget.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/resources/menu_sound.dart';
+import 'package:guessfest/resources/resources.dart';
 
 class MenuPopupWidget extends StatelessWidget {
   final ThemeEnum theme;
@@ -15,8 +16,12 @@ class MenuPopupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.fromLTRB(30, 80, 30, 100),
+      padding: Resources().isBigScreen(context)
+          ? EdgeInsets.only(left: width * 0.25, top: height * 0.2, right: width * 0.25, bottom: height * 0.30)
+          : const EdgeInsets.fromLTRB(30, 80, 30, 100),
       child: Stack(
         alignment: Alignment.center,
         children: [
