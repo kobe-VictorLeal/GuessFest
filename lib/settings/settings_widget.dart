@@ -75,6 +75,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         _textWidget(text: "Ajustes"),
         const Spacer(),
         Opacity(
+          // Gambiarra para centralizar o título
           opacity: 0,
           child: IconButton(
             icon: Image.asset(''),

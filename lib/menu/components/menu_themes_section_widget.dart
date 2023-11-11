@@ -106,34 +106,37 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
   Widget _themesWidget(BuildContext context, List<ThemeEnum> themes) {
     return SizedBox(
       height: 150,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: themes.length,
-          itemBuilder: (ctx, index) {
-            return Container(
-              padding: const EdgeInsets.only(left: 5, top: 0, right: 5, bottom: 5),
-              width: 150,
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      _openPopup(context, themes[index]);
-                    },
-                    child: Image.asset(
-                      'assets/images/menu/themes/${themes[index].name}.png',
-                      cacheWidth: 500,
+      child: Center(
+        child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: themes.length,
+            itemBuilder: (ctx, index) {
+              return Container(
+                padding: const EdgeInsets.only(left: 5, top: 0, right: 5, bottom: 5),
+                width: 150,
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        _openPopup(context, themes[index]);
+                      },
+                      child: Image.asset(
+                        'assets/images/menu/themes/${themes[index].name}.png',
+                        cacheWidth: 500,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    themes[index].title,
-                    style: _setTextStyle(fontSize: 20),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            );
-          }),
+                    const SizedBox(height: 5),
+                    Text(
+                      themes[index].title,
+                      style: _setTextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              );
+            }),
+      ),
     );
   }
 
