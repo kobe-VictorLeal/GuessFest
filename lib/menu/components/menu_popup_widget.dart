@@ -80,7 +80,7 @@ class MenuPopupWidget extends StatelessWidget {
 
   Image _themeImage() {
     return Image.asset(
-      'assets/images/menu/themes/${theme.name}.png',
+      'assets/images/menu/themes/${theme.imageName}.png',
       width: 180,
       cacheWidth: 500,
     );

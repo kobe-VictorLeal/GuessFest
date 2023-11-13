@@ -122,7 +122,7 @@ class _ThemesSectionWidgetState extends State<ThemesSectionWidget> with SingleTi
                         _openPopup(context, themes[index]);
                       },
                       child: Image.asset(
-                        'assets/images/menu/themes/${themes[index].name}.png',
+                        'assets/images/menu/themes/${themes[index].imageName}.png',
                         cacheWidth: 500,
                       ),
                     ),

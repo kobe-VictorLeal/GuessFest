@@ -79,6 +79,13 @@ class MenuWidget extends StatelessWidget {
         ThemeEnum.starwars,
       ],
     ),
+    ThemeSection(
+      title: "Outros Temas",
+      themes: [
+        ThemeEnum.recife,
+        ThemeEnum.olinda,
+      ],
+    ),
   ];
 
   MenuWidget({Key? key}) : super(key: key);
