@@ -4,6 +4,7 @@ import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/models/theme_words_list.dart';
 import 'package:guessfest/game/components/game_pause_widget.dart';
 import 'package:guessfest/game/components/crown_widget.dart';
+import 'package:guessfest/resources/resources.dart';
 import 'dart:async';
 import "dart:math";
 
@@ -245,6 +246,8 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final isEndGame = _gameStatus == GameStatusEnum.willEndGame || _gameStatus == GameStatusEnum.endGame;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -257,7 +260,9 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(left: 60, top: 50, right: 60, bottom: 120),
+              padding: Resources().isBigScreen(context)
+                  ? EdgeInsets.only(left: width * 0.15, top: height * 0.1, right: width * 0.15, bottom: height * 0.2)
+                  : EdgeInsets.only(left: width * 0.15, top: height * 0.07, right: width * 0.15, bottom: height * 0.2),
               child: Center(
                 child: Column(
                   children: [
@@ -542,39 +547,42 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     return AnimatedOpacity(
       opacity: _gameStatus == GameStatusEnum.endGame ? 1 : 0,
       duration: const Duration(seconds: 1),
-      child: Stack(children: [
-        Image.asset(
-          'assets/images/game/elements/gameOver.png',
-          height: 160,
-          width: MediaQuery.of(context).size.width * 0.75,
-          fit: BoxFit.fill,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const Spacer(),
-                  _gameOverTitleText(),
-                  const Spacer(),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  const Spacer(),
-                  _teamScoreWidget(TeamEnum.pink),
-                  const Spacer(),
-                  const Spacer(),
-                  _teamScoreWidget(TeamEnum.blue),
-                  const Spacer(),
-                ],
-              ),
-            ],
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.75,
+        child: Stack(children: [
+          Image.asset(
+            'assets/images/game/elements/gameOver.png',
+            height: 160,
+            width: MediaQuery.of(context).size.width * 1,
+            fit: BoxFit.fill,
           ),
-        )
-      ]),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const Spacer(),
+                    _gameOverTitleText(),
+                    const Spacer(),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    const Spacer(),
+                    _teamScoreWidget(TeamEnum.pink),
+                    const Spacer(),
+                    const Spacer(),
+                    _teamScoreWidget(TeamEnum.blue),
+                    const Spacer(),
+                  ],
+                ),
+              ],
+            ),
+          )
+        ]),
+      ),
     );
   }
 

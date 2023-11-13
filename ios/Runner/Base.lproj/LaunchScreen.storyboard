@@ -23,13 +23,13 @@
                                 <rect key="frame" x="187.5" y="333.5" width="0.0" height="0.0"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoGuessFest" translatesAutoresizingMaskIntoConstraints="NO" id="t2b-Lv-bVs">
-                                <rect key="frame" x="26.5" y="248" width="322" height="171"/>
+                                <rect key="frame" x="26.5" y="178" width="322" height="171"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1a2-6s-vTC"/>
-                            <constraint firstItem="t2b-Lv-bVs" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="3k8-Yq-hLC"/>
+                            <constraint firstItem="t2b-Lv-bVs" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-70" id="3k8-Yq-hLC"/>
                             <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
                             <constraint firstItem="t2b-Lv-bVs" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.256372" id="F5O-gT-y3t"/>
                             <constraint firstItem="t2b-Lv-bVs" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hZ9-eK-ISM"/>
