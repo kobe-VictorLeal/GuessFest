@@ -50,9 +50,9 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.vtr.guessfest"
-        minSdkVersion 33
+        minSdkVersion 22
         targetSdkVersion 33
-        versionCode 6
+        versionCode 7
         versionName "1.0"
     }
     signingConfigs {
