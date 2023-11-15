@@ -36,6 +36,8 @@ enum ThemeEnum {
   celebrities,
   recife,
   olinda,
+  rio,
+  romano,
 }
 
 extension ThemesExtension on ThemeEnum {
@@ -109,6 +111,10 @@ extension ThemesExtension on ThemeEnum {
         return 'Recife';
       case ThemeEnum.olinda:
         return 'Olinda';
+      case ThemeEnum.rio:
+        return 'Rio de janeiro';
+      case ThemeEnum.romano:
+        return 'Império Romano';
     }
   }
 
@@ -182,6 +188,10 @@ extension ThemesExtension on ThemeEnum {
         return "Tema prático, histórico e sentimental da cidade do Recife";
       case ThemeEnum.olinda:
         return "Olinda, quero cantar... quer dizer, adivinhar";
+      case ThemeEnum.rio:
+        return "Cidade maravilhosa! E esse tema também";
+      case ThemeEnum.romano:
+        return "Você já pensou em jogar esse tema hoje?";
     }
   }
 
@@ -254,6 +264,10 @@ extension ThemesExtension on ThemeEnum {
       case ThemeEnum.recife:
         return 'default';
       case ThemeEnum.olinda:
+        return 'default';
+      case ThemeEnum.rio:
+        return 'default';
+      case ThemeEnum.romano:
         return 'default';
     }
   }

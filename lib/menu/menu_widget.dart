@@ -84,6 +84,8 @@ class MenuWidget extends StatelessWidget {
       themes: [
         ThemeEnum.recife,
         ThemeEnum.olinda,
+        ThemeEnum.rio,
+        ThemeEnum.romano,
       ],
     ),
   ];
