@@ -34,6 +34,10 @@ enum ThemeEnum {
   the2000s,
   bible,
   celebrities,
+  recife,
+  olinda,
+  rio,
+  romano,
 }
 
 extension ThemesExtension on ThemeEnum {
@@ -103,6 +107,14 @@ extension ThemesExtension on ThemeEnum {
         return 'Bíblia';
       case ThemeEnum.celebrities:
         return 'Celebridades';
+      case ThemeEnum.recife:
+        return 'Recife';
+      case ThemeEnum.olinda:
+        return 'Olinda';
+      case ThemeEnum.rio:
+        return 'Rio de janeiro';
+      case ThemeEnum.romano:
+        return 'Império Romano';
     }
   }
 
@@ -172,6 +184,91 @@ extension ThemesExtension on ThemeEnum {
         return "Pessoas e histórias do livro mais lido do mundo";
       case ThemeEnum.celebrities:
         return "As pessoas que todo mundo conhecem";
+      case ThemeEnum.recife:
+        return "Tema prático, histórico e sentimental da cidade do Recife";
+      case ThemeEnum.olinda:
+        return "Olinda, quero cantar... quer dizer, adivinhar";
+      case ThemeEnum.rio:
+        return "Cidade maravilhosa! E esse tema também";
+      case ThemeEnum.romano:
+        return "Você já pensou em jogar esse tema hoje?";
+    }
+  }
+
+  String get imageName {
+    switch (this) {
+      case ThemeEnum.food:
+        return 'food';
+      case ThemeEnum.history:
+        return 'history';
+      case ThemeEnum.animals:
+        return 'animals';
+      case ThemeEnum.brand:
+        return 'brand';
+      case ThemeEnum.actions:
+        return 'actions';
+      case ThemeEnum.places:
+        return 'places';
+      case ThemeEnum.objects:
+        return 'objects';
+      case ThemeEnum.jobs:
+        return 'jobs';
+      case ThemeEnum.policy:
+        return 'policy';
+      case ThemeEnum.sports:
+        return 'sports';
+      case ThemeEnum.soccer:
+        return 'soccer';
+      case ThemeEnum.NFL:
+        return 'NFL';
+      case ThemeEnum.NBA:
+        return 'NBA';
+      case ThemeEnum.films:
+        return 'films';
+      case ThemeEnum.harrypotter:
+        return 'harrypotter';
+      case ThemeEnum.starwars:
+        return 'starwars';
+      case ThemeEnum.music:
+        return 'music';
+      case ThemeEnum.beatles:
+        return 'beatles';
+      case ThemeEnum.rock:
+        return 'rock';
+      case ThemeEnum.kids:
+        return 'kids';
+      case ThemeEnum.marvel:
+        return 'marvel';
+      case ThemeEnum.dccomics:
+        return 'dccomics';
+      case ThemeEnum.videogames:
+        return 'videogames';
+      case ThemeEnum.series:
+        return 'series';
+      case ThemeEnum.got:
+        return 'got';
+      case ThemeEnum.friends:
+        return 'friends';
+      case ThemeEnum.vikings:
+        return 'vikings';
+      case ThemeEnum.the80s:
+        return 'the80s';
+      case ThemeEnum.the90s:
+        return 'the90s';
+      case ThemeEnum.the2000s:
+        return 'the2000s';
+      case ThemeEnum.bible:
+        return 'bible';
+      case ThemeEnum.celebrities:
+        return 'celebrities';
+      case ThemeEnum.recife:
+        return 'default';
+      case ThemeEnum.olinda:
+        return 'default';
+      case ThemeEnum.rio:
+        return 'default';
+      case ThemeEnum.romano:
+        return 'default';
     }
   }
 }

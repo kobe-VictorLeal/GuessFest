@@ -21,7 +21,7 @@ class MenuPopupWidget extends StatelessWidget {
     return Container(
       padding: Resources().isBigScreen(context)
           ? EdgeInsets.only(left: width * 0.25, top: height * 0.2, right: width * 0.25, bottom: height * 0.3)
-          : EdgeInsets.only(left: width * 0.09, top: height * 0.08, right: width * 0.09, bottom: height * 0.23),
+          : EdgeInsets.only(left: width * 0.09, top: height * 0.08, right: width * 0.09, bottom: height * 0.19),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -80,7 +80,7 @@ class MenuPopupWidget extends StatelessWidget {
 
   Image _themeImage() {
     return Image.asset(
-      'assets/images/menu/themes/${theme.name}.png',
+      'assets/images/menu/themes/${theme.imageName}.png',
       width: 180,
       cacheWidth: 500,
     );
