@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:guessfest/game/resources/game_sound.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
@@ -29,7 +27,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   double _wordSize = 42;
   Color _wordColor = Colors.white.withOpacity(1);
 
-  final StreamController<TeamEnum> _winTeamController = StreamController<TeamEnum>();
+  final StreamController<TeamEnum> _winTeamController = StreamController<TeamEnum>.broadcast();
   TeamEnum _winningTeam = TeamEnum.neutral;
   TeamEnum _winTeam = TeamEnum.neutral;
   TeamEnum _playingTeam = TeamEnum.blue;
@@ -49,6 +47,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   final GameSound _sound = GameSound();
 
+  double _showWordListButtonTurns = 0.0;
   bool isWordList() {
     return _gameStatus == GameStatusEnum.endGame || _gameStatus == GameStatusEnum.wordList;
   }
@@ -273,20 +272,20 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                 child: Column(
                   children: [
                     _backButton(),
-                    _gameHeaderWidget(),
-                    const SizedBox(height: 10),
-                    _infoText(_infoTextString),
-                    const SizedBox(height: 5),
-                    _teamNameWidget(context, _playingTeam),
-                    const SizedBox(height: 15),
+                    Visibility(visible: _gameStatus != GameStatusEnum.wordList, child: _gameHeaderWidget()),
+                    AnimatedContainer(duration: _defautDuration, height: _gameStatus == GameStatusEnum.wordList ? 0 : 10),
+                    Visibility(visible: _gameStatus != GameStatusEnum.wordList, child: _infoText(_infoTextString)),
+                    AnimatedContainer(duration: _defautDuration, height: _gameStatus == GameStatusEnum.wordList ? 0 : 5),
+                    Visibility(visible: _gameStatus != GameStatusEnum.wordList, child: _teamNameWidget(context, _playingTeam)),
+                    Visibility(visible: _gameStatus != GameStatusEnum.wordList, child: const SizedBox(height: 15)),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _teamNameWidget(context, TeamEnum.pink)),
-                    const SizedBox(height: 10),
+                    AnimatedContainer(duration: _defautDuration, height: _gameStatus == GameStatusEnum.wordList ? 0 : 10),
                     Visibility(visible: isEndGame, child: _gameOverWidget(context)),
-                    const SizedBox(height: 10),
+                    AnimatedContainer(duration: _defautDuration, height: _gameStatus == GameStatusEnum.wordList ? 0 : 10),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: const SizedBox(height: 30)),
                     Visibility(visible: _gameStatus == GameStatusEnum.countdown, child: _countdownWidget()),
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _playButton()),
-                    const Spacer(),
+                    Visibility(visible: _gameStatus != GameStatusEnum.wordList, child: const Spacer()),
                     Visibility(visible: isWordList(), child: _endGamePanelWidget(context)),
                     Visibility(visible: isWordList(), child: _showWordListWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _wordText(_currentWord)),
@@ -314,7 +313,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
           Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _timeText()),
           const Spacer(),
           CrownWidget(streamTeam: _winTeamController.stream, isEndGame: _gameStatus == GameStatusEnum.endGame),
-          Visibility(visible: _gameStatus == GameStatusEnum.endGame, child: const Spacer()),
+          Visibility(visible: isWordList(), child: const Spacer()),
         ],
       ),
     );
@@ -363,7 +362,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     }
 
     return AnimatedOpacity(
-      opacity: _gameStatus != GameStatusEnum.willEndGame ? 1 : 0,
+      opacity: _gameStatus == GameStatusEnum.willEndGame || _gameStatus == GameStatusEnum.wordList ? 0 : 1,
       duration: _defautDuration,
       child: Container(
         padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
@@ -557,8 +556,9 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   IconButton _showWordListButton(BuildContext context) {
     return IconButton(
-      icon: RotationTransition(
-        turns: const AlwaysStoppedAnimation(1 / 2),
+      icon: AnimatedRotation(
+        turns: _showWordListButtonTurns,
+        duration: const Duration(milliseconds: 500),
         child: Image.asset('assets/images/game/buttons/arrow.png'),
       ),
       iconSize: 40,
@@ -566,8 +566,10 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         setState(() {
           if (_gameStatus == GameStatusEnum.endGame) {
             _gameStatus = GameStatusEnum.wordList;
+            _showWordListButtonTurns = 0.5;
           } else {
             _gameStatus = GameStatusEnum.endGame;
+            _showWordListButtonTurns = 0.0;
           }
         });
       },
