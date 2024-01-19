@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guessfest/game/game_word_widget.dart';
+import 'package:guessfest/game/models/game_team_enum.dart';
 import 'package:guessfest/resources/resources.dart';
 
 class CrownWidget extends StatefulWidget {

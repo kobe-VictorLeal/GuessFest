@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/game/models/game_team_enum.dart';
 import 'package:guessfest/resources/resources.dart';
+import 'package:guessfest/game/models/game_word.dart';
 
 class GameWordListWidget extends StatelessWidget {
-  GameWordListWidget({Key? key}) : super(key: key);
+  const GameWordListWidget({Key? key, required this.wordsList}) : super(key: key);
 
-  final wordsList = ["1111", "2222", "3333", "4444"];
+  final List<GameWord> wordsList;
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     return Container(
       height: Resources().isBigScreen(context) ? height * 0.45 : height * 0.45,
       padding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
@@ -39,31 +40,30 @@ class GameWordListWidget extends StatelessWidget {
                 itemCount: wordsList.length,
                 itemBuilder: (ctx, index) {
                   return Container(
-                    color: index % 2 == 0 ? const Color.fromRGBO(68, 172, 210, 1) : const Color.fromRGBO(216, 58, 134, 1),
+                    color: wordsList[index].team == TeamEnum.pink ? const Color.fromRGBO(216, 58, 134, 1) : const Color.fromRGBO(68, 172, 210, 1),
                     child: Column(
                       children: [
-                        const SizedBox(height: 5),
-                        Visibility(
-                          visible: index != wordsList.length,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              Image.asset(
-                                'assets/images/game/elements/checkIcon.png',
-                                width: 25,
-                                fit: BoxFit.fill,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                wordsList[index],
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            Image.asset(
+                              'assets/images/game/elements/${wordsList[index].isHit ? "checkIcon.png" : "jumpIcon.png"}',
+                              width: 25,
+                              fit: BoxFit.fitHeight,
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                wordsList[index].word,
                                 style: _setTextStyle(color: Colors.white),
                                 textAlign: TextAlign.left,
                               ),
-                              const SizedBox(width: 10),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(width: 10),
+                          ],
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   );
@@ -73,16 +73,6 @@ class GameWordListWidget extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  IconButton _backButton(BuildContext context) {
-    return IconButton(
-      icon: Image.asset('assets/images/game/buttons/menu.png'),
-      iconSize: 75,
-      onPressed: () {
-        Navigator.of(context).popUntil((route) => route.isFirst);
-      },
     );
   }
 

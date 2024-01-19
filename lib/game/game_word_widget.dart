@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:guessfest/game/resources/game_sound.dart';
 import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/models/theme_words_list.dart';
+import 'package:guessfest/game/models/game_team_enum.dart';
+import 'package:guessfest/game/models/game_word.dart';
 import 'package:guessfest/game/components/game_pause_widget.dart';
 import 'package:guessfest/game/components/crown_widget.dart';
 import 'package:guessfest/game/components/game_word_list_widget.dart';
@@ -43,6 +45,8 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   List<String> _currentWordList = [];
   String _currentWord = "";
+
+  List<GameWord> _wordUsedList = [];
 
   String _infoTextString = "Escolham entre si os seus times";
 
@@ -89,6 +93,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   }
 
   void _setUserResponse({required bool isHit}) {
+    _addWordUsedList(isHit: isHit);
     _setWordAnimation(isHit: isHit);
     if (isHit) {
       _sound.playHit();
@@ -100,6 +105,19 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     Future.delayed(const Duration(milliseconds: 500)).then((val) {
       _nextWord();
     });
+  }
+
+  void _addWordUsedList({required bool isHit}) {
+    final gameWord = GameWord(
+      word: _currentWord,
+      team: _playingTeam,
+      isHit: isHit,
+    );
+
+    final contain = _wordUsedList.where((element) => element.word == _currentWord);
+    if (contain.isEmpty) {
+      _wordUsedList.add(gameWord);
+    }
   }
 
   void _setWordAnimation({required bool isHit}) {
@@ -200,6 +218,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
     _timeLeft = 10;
     _blueTeamPoints = 0;
     _pinkTeamPoints = 0;
+    _wordUsedList = [];
   }
 
   _setTeamPoints() {
@@ -295,7 +314,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _actionPanelWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 20)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _pauseButton(context)),
-                    Visibility(visible: _gameStatus == GameStatusEnum.wordList, child: GameWordListWidget()),
+                    Visibility(visible: _gameStatus == GameStatusEnum.wordList, child: GameWordListWidget(wordsList: _wordUsedList)),
                     Visibility(visible: _gameStatus == GameStatusEnum.wordList, child: const Spacer()),
                   ],
                 ),
@@ -659,23 +678,5 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
         ),
       ],
     );
-  }
-}
-
-enum GameStatusEnum { preGame, countdown, activeGame, willEndGame, endGame, wordList }
-enum TeamEnum { pink, blue, neutral }
-
-extension TeamEnumExtension on TeamEnum {
-  String get title {
-    switch (this) {
-      case TeamEnum.pink:
-        return 'Rosa';
-
-      case TeamEnum.blue:
-        return 'Azul';
-
-      case TeamEnum.neutral:
-        return 'Empate';
-    }
   }
 }
