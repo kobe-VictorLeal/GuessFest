@@ -102,6 +102,8 @@ flutter:
     - assets/images/game/elements/balloonTop.png
     - assets/images/game/elements/balloonBottom.png
     - assets/images/game/elements/gameOver.png
+    - assets/images/game/elements/checkIcon.png
+    - assets/images/game/elements/jumpIcon.png
 
     # Popup Menu
     - assets/images/menu/popup/popupTheme.png

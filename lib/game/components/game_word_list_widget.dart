@@ -1,26 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:guessfest/resources/resources.dart';
 
 class GameWordListWidget extends StatelessWidget {
-  final void Function(BuildContext) returnAction;
+  GameWordListWidget({Key? key}) : super(key: key);
 
-  const GameWordListWidget({
-    Key? key,
-    required this.returnAction,
-  }) : super(key: key);
+  final wordsList = ["1111", "2222", "3333", "4444"];
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.only(left: width * 0.15, top: height * 0.1, right: width * 0.15, bottom: height * 0.2),
-      child: Column(
+      height: Resources().isBigScreen(context) ? height * 0.45 : height * 0.45,
+      padding: const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 10),
+      child: Stack(
+        alignment: Alignment.topCenter,
         children: [
-          Center(
+          Image.asset(
+            'assets/images/menu/settings/screen.png',
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.fill,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
             child: Text(
-              "Jogo Pausado",
-              style: _setTextStyle(fontSize: 40, color: const Color.fromRGBO(247, 235, 94, 1)),
-              textAlign: TextAlign.center,
+              "Palavras",
+              style: _setTextStyle(color: Colors.white),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(left: 0, top: 40, right: 0, bottom: 20),
+            child: Material(
+              color: Colors.transparent,
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: wordsList.length,
+                itemBuilder: (ctx, index) {
+                  return Container(
+                    color: index % 2 == 0 ? const Color.fromRGBO(68, 172, 210, 1) : const Color.fromRGBO(216, 58, 134, 1),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 5),
+                        Visibility(
+                          visible: index != wordsList.length,
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 10),
+                              Image.asset(
+                                'assets/images/game/elements/checkIcon.png',
+                                width: 25,
+                                fit: BoxFit.fill,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                wordsList[index],
+                                style: _setTextStyle(color: Colors.white),
+                                textAlign: TextAlign.left,
+                              ),
+                              const SizedBox(width: 10),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -38,10 +86,10 @@ class GameWordListWidget extends StatelessWidget {
     );
   }
 
-  TextStyle _setTextStyle({double fontSize = 12, required Color color}) {
+  TextStyle _setTextStyle({required Color color}) {
     return TextStyle(
       fontFamily: "Bebas",
-      fontSize: fontSize,
+      fontSize: 24,
       color: color,
       fontWeight: FontWeight.normal,
       decoration: TextDecoration.none,

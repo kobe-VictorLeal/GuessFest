@@ -4,6 +4,7 @@ import 'package:guessfest/menu/models/theme_enum.dart';
 import 'package:guessfest/menu/models/theme_words_list.dart';
 import 'package:guessfest/game/components/game_pause_widget.dart';
 import 'package:guessfest/game/components/crown_widget.dart';
+import 'package:guessfest/game/components/game_word_list_widget.dart';
 import 'package:guessfest/resources/resources.dart';
 import 'dart:async';
 import "dart:math";
@@ -21,7 +22,7 @@ class GameWordWidget extends StatefulWidget {
 }
 
 class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProviderStateMixin {
-  GameStatusEnum _gameStatus = GameStatusEnum.preGame;
+  GameStatusEnum _gameStatus = GameStatusEnum.wordList;
   final Duration _defautDuration = const Duration(seconds: 1);
 
   double _wordSize = 42;
@@ -294,6 +295,8 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _actionPanelWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 20)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _pauseButton(context)),
+                    Visibility(visible: _gameStatus == GameStatusEnum.wordList, child: GameWordListWidget()),
+                    Visibility(visible: _gameStatus == GameStatusEnum.wordList, child: const Spacer()),
                   ],
                 ),
               ),
