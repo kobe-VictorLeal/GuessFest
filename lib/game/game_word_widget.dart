@@ -24,7 +24,7 @@ class GameWordWidget extends StatefulWidget {
 }
 
 class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProviderStateMixin {
-  GameStatusEnum _gameStatus = GameStatusEnum.wordList;
+  GameStatusEnum _gameStatus = GameStatusEnum.preGame;
   final Duration _defautDuration = const Duration(seconds: 1);
 
   double _wordSize = 42;
@@ -41,7 +41,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
   int _countdownLeft = 2;
 
   late Timer _timer;
-  int _timeLeft = 10;
+  int _timeLeft = 120;
 
   List<String> _currentWordList = [];
   String _currentWord = "";
@@ -215,7 +215,7 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
 
   _resetValues() {
     _countdownLeft = 2;
-    _timeLeft = 10;
+    _timeLeft = 120;
     _blueTeamPoints = 0;
     _pinkTeamPoints = 0;
     _wordUsedList = [];
@@ -307,9 +307,10 @@ class _GameWordWidgetState extends State<GameWordWidget> with SingleTickerProvid
                     Visibility(visible: _gameStatus == GameStatusEnum.preGame, child: _playButton()),
                     Visibility(visible: _gameStatus != GameStatusEnum.wordList, child: const Spacer()),
                     Visibility(visible: isWordList(), child: _endGamePanelWidget(context)),
+                    Visibility(visible: _gameStatus == GameStatusEnum.endGame, child: const Spacer()),
                     Visibility(visible: isWordList(), child: _showWordListWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _wordText(_currentWord)),
-                    const Spacer(),
+                    Visibility(visible: _gameStatus != GameStatusEnum.endGame, child: const Spacer()),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 10)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: _actionPanelWidget(context)),
                     Visibility(visible: _gameStatus == GameStatusEnum.activeGame, child: const SizedBox(height: 20)),

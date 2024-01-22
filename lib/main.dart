@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guessfest/menu/menu_widget.dart';
 import 'package:guessfest/tutorial/tutorial_widget.dart';
 import 'package:guessfest/settings/settings_widget.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,8 +25,13 @@ class MyApp extends StatelessWidget {
 class MainWidget extends StatelessWidget {
   const MainWidget({Key? key}) : super(key: key);
 
+  void _portraitModeOnly() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _portraitModeOnly();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromRGBO(82, 58, 113, 1),
