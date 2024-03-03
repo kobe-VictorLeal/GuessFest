@@ -80,6 +80,7 @@ flutter:
     - assets/images/game/buttons/pause.png
     - assets/images/game/buttons/playAgain.png
     - assets/images/game/buttons/menu.png
+    - assets/images/game/buttons/arrow.png
 
     # Bar Menu
     - assets/images/menu/bars/greenBar.png
@@ -101,7 +102,8 @@ flutter:
     - assets/images/game/elements/balloonTop.png
     - assets/images/game/elements/balloonBottom.png
     - assets/images/game/elements/gameOver.png
-    - assets/images/game/elements/arrow.png
+    - assets/images/game/elements/checkIcon.png
+    - assets/images/game/elements/jumpIcon.png
 
     # Popup Menu
     - assets/images/menu/popup/popupTheme.png

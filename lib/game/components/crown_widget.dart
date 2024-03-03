@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guessfest/game/game_word_widget.dart';
+import 'package:guessfest/game/models/game_team_enum.dart';
+import 'package:guessfest/resources/resources.dart';
 
 class CrownWidget extends StatefulWidget {
   final Stream<TeamEnum> streamTeam;
@@ -62,12 +63,13 @@ class _CrownWidgetState extends State<CrownWidget> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
+    final double endGameWidth = Resources().isBigScreen(context) ? 140 : 95;
     return RotationTransition(
       turns: Tween(begin: -0.025, end: 0.025).animate(_controller),
       //duration: const Duration(milliseconds: 500),
       child: Image.asset(
         'assets/images/game/elements/$_team.png',
-        width: widget.isEndGame ? 140 : 85,
+        width: widget.isEndGame ? endGameWidth : 85,
         cacheWidth: 200,
         fit: BoxFit.fill,
       ),
